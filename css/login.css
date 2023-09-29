@@ -1,0 +1,8 @@
+form>span{
+    text-align: center;
+    display:block;
+}
+
+form>span>input{
+    display:inline-block;
+}

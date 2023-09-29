@@ -1,0 +1,29 @@
+body {
+    background-color: blanchedalmond;
+    align-items: center;
+}
+
+.centeredchildren {
+    text-align: center;
+    display: block;
+    position:relative;
+    top:33%;
+}
+
+form:not(.invisible){
+    width:200px;
+    height:33%;
+
+    display: inline-block;
+    text-align: center;
+    border-radius: 15px;
+    padding:30px;
+    margin:50vh;
+
+    background-color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+form>*{
+    display:block;
+}

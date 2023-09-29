@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="../css/index.css">
+        <link rel="stylesheet" href="../css/login.css">
+        <title>Connection</title>
+    </head>
+    <body>
+        <div class="centeredchildren">
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+                <p>Nom d'utilisateur : <input type="text" name="username"/></p>
+                <?php echo login($username, $password);?>
+                <p>Mot de passe : <input type="password" name="password"/></p>
+                <?php echo login($username, $password);?>
+                <span><input type="submit" value="Connection"/></span>
+                <br/>
+                <p>Pas de compte ? <button id="signupbutton" type="button" onclick="">Créer un compte</button></p>
+            </form>
+        </div>
+        <form id="signupform" class="invisible" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+            <input type="hidden" name="signup" value="1">
+        </form>
+        <script type="text/javascript" src="../js/login.js"></script>
+    </body>
+</html>
