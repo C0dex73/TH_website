@@ -1,21 +1,32 @@
 <?php
 
+//* DATA BASE LOGIN (TEMP) + VARS
 $log = array();
-function console($message){
-    global $log;
-    $log = array_merge($log, array(strval($message)));
-}
 
-//temp DB login
 $servername = "localhost";
 $username = "codex";
 $password = "8UMZw(ZUyedlsURI";
 $db = "th_internal";
 
 $conn = new mysqli($servername, $username, $password, $db);
+if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error);}
 
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+$correct = $pass = $email = $state = $checkpassword = $password = $username = "-1";
+
+
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \\
+
+
+
+
+
+
+function console($message){
+    global $log;
+    $log = array_merge($log, array(strval($message)));
 }
 
 function secureSet($key){
@@ -101,7 +112,22 @@ function signup($_username, $_password, $_checkpassword, $_email){
     return true;
 }
 
-$correct = $pass = $email = $state = $checkpassword = $password = $username = "-1";
+function isMobile() {
+    return preg_match("/(android|avantgo|blackberry|bolt|boost|cricket|docomo|fone|hiptop|mini|mobi|palm|phone|pie|tablet|up\.browser|up\.link|webos|wos)/i", $_SERVER["HTTP_USER_AGENT"]);
+}
+
+
+
+
+
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MAIN SCRIPT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \\
+
+
+
+
+
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $state = secureSet('state');
     $pass = secureSet('pass');
@@ -137,7 +163,11 @@ switch ($state){
         include("./pages/singup.html");
         break;
     case '2' :
-        include("./pages/mainpage.html");
+        if(isMobile()){
+            include("./pages/mobilepage.html");
+        }else{
+            include("./pages/mainpage.html");
+        }
         break;
     default :
         include("./pages/login.html");
