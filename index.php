@@ -19,6 +19,12 @@ function secureSet($key){
     return "";
 }
  
+function toUser($post){
+    if($post == '-1'){
+        return "";
+    }
+    return $post;
+}
 
 function usernameVerify($username, $signup){
     if($username == ""){
@@ -35,11 +41,31 @@ function usernameVerify($username, $signup){
     }
     return $signup ? "" : "Nom d'utilisateur inconnu";
 }
-function login($_username, $_password){
 
+function emailVerify($email){
+    if($email == '-1'){
+        return "";
+    }
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        return "format d'e-mail invalide";
+    }
+    return "";
 }
 
-$pass = $email = $state = $password = $username = "-1";
+function login($_username, $_password){
+    if(usernameVerify($_username, false) != ""){
+        return "-1";
+    }
+    global $conn;
+    $sql = 'SELECT * FROM `login` WHERE `password`="'. $_password . '" AND `username`="'. $_username . '"';
+    $result = $conn->query($sql);
+    if($result->num_rows > 0){
+        return "1";
+    }
+    return "0";
+}
+
+$correct = $pass = $email = $state = $password = $username = "-1";
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $state = secureSet('state');
     $pass = secureSet('pass');
@@ -50,12 +76,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 }
 
+if($state == '-2'){
+    $correct = login($username, $password);
+    if($correct == "1"){
+        $state = '2';
+    }else if($correct == "0"){
+        $correct = "Mauvais mot de passe";
+    }
+}
+
 switch ($state){
     case '0' : 
         include("./pages/mainpage.html");
         break;
     case '1' :
         include("./pages/singup.html");
+        break;
+    case '2' :
+        include("./pages/mainpage.html");
         break;
     default :
         include("./pages/login.html");

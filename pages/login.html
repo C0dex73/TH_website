@@ -9,14 +9,15 @@
     <body>
         <div id="formdiv">
             <form id="loginform" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-                <p>Nom d'utilisateur : <input type="text" name="username"/></p>
+                <p>Nom d'utilisateur : <input type="text" name="username" value=<?php echo '"' . toUser($username) . '"' ?>/></p>
                 <p class="verify"><?php echo usernameVerify($username, false);?></p>
-                <p>Mot de passe : <input type="password" name="password"/></p>
-                <p class="verify"><?php echo login($username, $password);?></p>
+                <p>Mot de passe : <input type="password" name="password" value=<?php echo '"' . toUser($password) . '"' ?>/></p>
+                <p class="verify"><?php echo toUser($correct);?></p>
                 <span><input type="submit" value="Connection"/></span>
                 <br/>
                 <p>Pas de compte ? <button id="signupbutton" type="button" onclick="">Créer un compte</button></p>
                 <input type="hidden" name="pass" value="1"/>
+                <input type="hidden" name="state" value="-2"/>
             </form>
         </div>
         <form id="signupform" class="invisible" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
