@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="stylesheet" href="../css/index.css"/>
+        <title>vérification E-mail</title>
+    </head>
+    <body>
+        <form id="emailform" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+            <p>Code de vérification : <input type="text" name="code"/></p>
+            <input type="hidden" name="email" value="<?php echo $email; ?>" />
+            <span><input type="submit" value="Vérifier"/></span>
+            <span><button id="kill">Abandonner</button></span>
+        </form>
+        <form id="killform" class="invisible">
+            <input type="hidden" name="state" value="-1"/>
+        </form>
+    </body>
+</html>

@@ -1,10 +1,12 @@
 <?php
 
+//temp DB login
 $servername = "localhost";
 $username = "codex";
 $password = "8UMZw(ZUyedlsURI";
+$db = "th_internal";
 
-$conn = new mysqli($servername, $username, $password);
+$conn = new mysqli($servername, $username, $password, $db);
 
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
@@ -16,28 +18,47 @@ function secureSet($key){
     }
     return "";
 }
+ 
 
-/*promise = 0 : "OK" / "" ;
- *          1 : "OK" / "Utilisateur inconnu" / "" ;
- *          2 : "OK" / "Mot de passe incorrect" / "";
- */
-function login($_username, $_password, $promise = 0){
+function usernameVerify($username, $signup){
+    if($username == ""){
+        return "Nom d'utilisateur invalide";
+    }
+    if($username == "-1"){
+        return "";
+    }
+    global $conn;
+    $sql = 'SELECT `username` FROM `login` WHERE `username`="' . $username . '"';
+    $result = $conn->query($sql);
+    if($result->num_rows > 0){
+        return $signup ? "Nom d'utilisateur déjà pris" : "";
+    }
+    return $signup ? "" : "Nom d'utilisateur inconnu";
+}
+function login($_username, $_password){
 
 }
 
-$signup = $password = $username = "";
+$pass = $email = $state = $password = $username = "-1";
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $username = secureSet('username');
-    $password = secureSet('password');
-    $signup = secureSet('signup');
+    $state = secureSet('state');
+    $pass = secureSet('pass');
+    if($pass == '1'){
+        $username = secureSet('username');
+        $password = secureSet('password');
+        $email = secureSet('email');
+    }
 }
 
-if($signup == '1'){
-    include("./pages/singup.html");
-}else if(login($username, $password) == "OK"){
-    include("./pages/mainpage.html");
-}else{
-    include("./pages/login.html");
+switch ($state){
+    case '0' : 
+        include("./pages/mainpage.html");
+        break;
+    case '1' :
+        include("./pages/singup.html");
+        break;
+    default :
+        include("./pages/login.html");
+        break;
 }
-
 ?>
