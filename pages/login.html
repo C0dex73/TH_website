@@ -23,6 +23,8 @@
         <form id="signupform" class="invisible" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
             <input type="hidden" name="state" value="1">
         </form>
+        <!--LOGS AND SCRIPTS-->
+        <input id="log" type="hidden" name="log" value="<?php echo $log; ?>"/>
         <script type="text/javascript" src="../js/index.js"></script>
         <script type="text/javascript" src="../js/login.js"></script>
     </body>

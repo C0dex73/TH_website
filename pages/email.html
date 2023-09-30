@@ -8,12 +8,18 @@
     <body>
         <form id="emailform" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
             <p>Code de vérification : <input type="text" name="code"/></p>
-            <input type="hidden" name="email" value="<?php echo $email; ?>" />
+            <input type="hidden" name="email" value="<?php echo $email; ?>"/>
+            <input type="hidden" name="state" value="0"/>
+            <input type="hidden" name="pass" value="1"/>
             <span><input type="submit" value="Vérifier"/></span>
-            <span><button id="kill">Abandonner</button></span>
+            <span><button id="killbutton" type="button" onclick="">Abandonner</button></span>
         </form>
-        <form id="killform" class="invisible">
-            <input type="hidden" name="state" value="-1"/>
+        <form id="killform" class="invisible" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+            <input type="hidden" name="state" value=""/>
         </form>
+        <!--LOGS AND SCRIPTS-->
+        <input id="log" type="hidden" name="log" value="<?php echo $log; ?>"/>
+        <script type="text/javascript" src="../js/index.js"></script>
+        <script type="text/javascript" src="../js/email.js"></script>
     </body>
 </html>

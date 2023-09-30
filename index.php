@@ -1,5 +1,11 @@
 <?php
 
+$log = array();
+function console($message){
+    global $log;
+    $log = array_merge($log, array(strval($message)));
+}
+
 //temp DB login
 $servername = "localhost";
 $username = "codex";
@@ -49,7 +55,23 @@ function emailVerify($email){
     if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
         return "format d'e-mail invalide";
     }
+    global $conn;
+    $sql = 'SELECT * FROM `login` WHERE `email`="'. $email . '"';
+    $result = $conn->query($sql);
+    if($result->num_rows > 0){
+        return "Cette e-mail est déjà prise";
+    }
     return "";
+}
+
+function passwordMatch($password1, $password2){
+    if($password1 == "" || $password2 == ""){
+        return "Mot de passe obligatoire";
+    }
+    if($password1 == $password2 || $password2 == "-1" || $password1 == "-1"){
+        return "";
+    }
+    return "Les mots de passe ne correspondent pas";
 }
 
 function login($_username, $_password){
@@ -65,7 +87,21 @@ function login($_username, $_password){
     return "0";
 }
 
-$correct = $pass = $email = $state = $password = $username = "-1";
+function signup($_username, $_password, $_checkpassword, $_email){
+    //console(usernameVerify($_username, true));
+    if(usernameVerify($_username, true) != ""
+    || passwordMatch($_password, $_checkpassword) != ""
+    || emailVerify($_email) != ""
+    || $_username == "-1"
+    || $_password == "-1"
+    || $_email == "-1"
+    || $_checkpassword == "-1"){
+        return false;
+    }
+    return true;
+}
+
+$correct = $pass = $email = $state = $checkpassword = $password = $username = "-1";
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $state = secureSet('state');
     $pass = secureSet('pass');
@@ -73,7 +109,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $username = secureSet('username');
         $password = secureSet('password');
         $email = secureSet('email');
+        $checkpassword = secureSet('checkpassword');
     }
+}
+
+if($state == '1' && signup($username, $password, $checkpassword, $email)){
+    $state = '0';
 }
 
 if($state == '-2'){
@@ -85,9 +126,12 @@ if($state == '-2'){
     }
 }
 
+$log = implode("\n", $log);
+
+//build page
 switch ($state){
     case '0' : 
-        include("./pages/mainpage.html");
+        include("./pages/email.html");
         break;
     case '1' :
         include("./pages/singup.html");

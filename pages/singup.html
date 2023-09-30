@@ -9,23 +9,25 @@
     <body>
         <div id="formdiv">
             <form id="signup" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-                <p>Nom d'utilisateur : <input type="text" name="username" value=<?php echo '"' . toUser($username) . '"' ?>/></p>
+                <p>Nom d'utilisateur : <input type="text" name="username" value="<?php echo toUser($username); ?>"/></p>
                 <p class="verify"><?php echo usernameVerify($username, true);?></p>
-                <p>Mot de passe : <input type="password" name="password" value=<?php echo '"' . toUser($password) . '"' ?>/></p>
-                <p class="verify"><?php echo login($username, $password);?></p>
+                <p>Mot de passe : <input type="password" name="password" value="<?php echo toUser($password); ?>"/></p>
                 <p>Confirmer le mot de passe : <input type="password" name="checkpassword"/></p>
-                <p>E-mail : <input type="text" name="email" value=<?php echo '"' . toUser($email) . '"' ?>/></p>
+                <p class="verify"><?php echo passwordMatch($password, $checkpassword)?></p>
+                <p>E-mail : <input type="text" name="email" value="<?php echo toUser($email); ?>"/></p>
                 <p class="verify"><?php echo emailVerify($email);?></p>
-                <span><input type="submit" value="Créer un compte"/></span>
+                <span><input id="signupbutton" type="submit" value="Créer un compte" /></span>
                 <br/>
                 <p>Déjà un compte ? <button id="loginbutton" type="button" onclick="">Se connecter</button></p>
                 <input type="hidden" name="pass" value="1"/>
-                <input type="hidden" name="state" value="-1">
+                <input type="hidden" name="state" value="1">
             </form>
         </div>
         <form id="loginform" class="invisible" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
             <input type="hidden" name="state" value="">
         </form>
+        <!--LOGS AND SCRIPTS-->
+        <input id="log" type="hidden" name="log" value="<?php echo $log; ?>"/>
         <script type="text/javascript" src="../js/index.js"></script>
         <script type="text/javascript" src="../js/signup.js"></script>
     </body>
