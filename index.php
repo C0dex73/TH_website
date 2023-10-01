@@ -1,17 +1,22 @@
 <?php
 
-//* DATA BASE LOGIN (TEMP) + VARS
-$log = array();
+//! configs are taken from the config.php file, see README.md for details
+$config = include("./config.php");
+define('CONFIG', $config);
 
-$servername = "localhost";
-$username = "codex";
-$password = "8UMZw(ZUyedlsURI";
-$db = "th_internal";
+
+//* DATA BASE LOGIN (TEMP) + VARS DEF
+
+$servername = CONFIG['SERVERNAME'];
+var_dump($servername);
+$username = CONFIG['USERNAME'];
+$password = CONFIG['PASSWORD'];
+$db = CONFIG['DB'];
 
 $conn = new mysqli($servername, $username, $password, $db);
 if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error);}
 
-$Cemail = $correct = $pass = $email = $state = $checkpassword = $password = $username = "-1";
+$Acode = $Cemail = $correct = $pass = $email = $state = $checkpassword = $password = $username = "-1";
 
 
 
@@ -97,18 +102,29 @@ function login($_username, $_password){
     return "-2";
 }
 
-function signup($_username, $_password, $_checkpassword, $_email){
-    //console(usernameVerify($_username, true));
+function signup($_username, $_password, $_checkpassword, $_email, $_Acode){
     if(usernameVerify($_username, true) != ""
     || passwordMatch($_password, $_checkpassword) != ""
     || emailVerify($_email) != ""
     || $_username == "-1"
     || $_password == "-1"
     || $_email == "-1"
-    || $_checkpassword == "-1"){
+    || $_checkpassword == "-1"
+    || $_Acode != CONFIG['ACODE']){
         return false;
     }
     return true;
+}
+
+function Vacode($_Acode){
+    if($_Acode != '-1'){
+        if($_Acode == ""){
+            return "Code d'inscription obligatoire";
+        }
+        if($_Acode != CONFIG['ACODE']){
+            return "Code d'inscription incorrect";
+        }
+    }
 }
 
 function isMobile() {
@@ -152,7 +168,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 switch ($state){
     case '1':
-        if(signup($username, $password, $checkpassword, $email)){
+        if(signup($username, $password, $checkpassword, $email, $Acode)){
             $datetime = new DateTime();
             $datetime->modify('+1 day');
             $exVcode = $datetime->format('Y-m-d H:i:s');
