@@ -1,4 +1,4 @@
-TH website for JDA High School <br/>
+TH website for [JDA High School](https://www.lyceejeannedarc.com/) <br/>
 
 - [PHP server](https://sourceforge.net/projects/xampp/) is needed to run the website correctly <br/>
 - [index.php](https://github.com/C0dex73/TH_website/blob/main/index.php) required a config.php file (rename [default_config.php](https://github.com/C0dex73/TH_website/blob/main/default_config.php) to config.php and set the values) <br/>
