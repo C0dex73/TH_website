@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 30 sep. 2023 à 12:52
+-- Généré le : dim. 01 oct. 2023 à 16:58
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -31,15 +31,17 @@ CREATE TABLE `login` (
   `username` text NOT NULL,
   `password` text NOT NULL,
   `token` text NOT NULL,
-  `email` text NOT NULL
+  `email` text NOT NULL,
+  `Vcode` text NOT NULL DEFAULT '-1',
+  `VcodeEx` datetime NOT NULL DEFAULT '2007-08-05 03:47:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `login`
 --
 
-INSERT INTO `login` (`username`, `password`, `token`, `email`) VALUES
-('codex', 'codex', '0', '@');
+INSERT INTO `login` (`username`, `password`, `token`, `email`, `Vcode`, `VcodeEx`) VALUES
+('example_username', 'example_password', 'example_token', 'example@email.com', '3xampl3Vc0d3', '2007-08-05 03:47:00');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
