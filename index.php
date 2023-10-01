@@ -15,7 +15,7 @@ $db = CONFIG['DB'];
 $conn = new mysqli($servername, $username, $password, $db);
 if ($conn->connect_error) { die("Connection failed: " . $conn->connect_error);}
 
-$Acode = $Cemail = $correct = $pass = $email = $state = $checkpassword = $password = $username = "-1";
+$M_Acode = $Acode = $Cemail = $correct = $pass = $email = $state = $checkpassword = $password = $username = "-1";
 
 
 
@@ -124,6 +124,7 @@ function Vacode($_Acode){
             return "Code d'inscription incorrect";
         }
     }
+    return "";
 }
 
 function isMobile() {
@@ -150,13 +151,13 @@ function unique_id($l = 8) {
 
 
 
-
 //* Process data before rendering
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $state = secureSet('state');
     $pass = secureSet('pass');
     if($pass == '1'){
+        $Acode = secureSet('Acode');
         $vCode = secureSet('vCode');
         $username = secureSet('username');
         $password = secureSet('password');
@@ -177,6 +178,10 @@ switch ($state){
             $result = $conn->query($sql);
             sendMail($email, $vCode);
             $state = '0';
+        }
+        $M_Acode = Vacode($Acode);
+        if($M_Acode != ""){
+            $Acode = "";
         }
         break;
     case '-2':
@@ -211,6 +216,7 @@ switch ($state){
                             $result = $conn->query($sql);
                             $state="";
                             $Cemail = "OK";
+                            $username = "-1";
                         }else{
                             $correct = "Code de vérification expiré, veuillez recréer un compte";
                             $sql = 'DELETE FROM login WHERE `email`="'. $email .'"';

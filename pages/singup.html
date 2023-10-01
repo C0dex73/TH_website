@@ -17,11 +17,10 @@
                 <p class="verify"><?php echo passwordMatch($password, $checkpassword)?></p>
                 <p>E-mail : <input type="text" name="email" value="<?php echo toUser($email); ?>"/></p>
                 <p class="verify"><?php echo emailVerify($email);?></p>
-                <span><input id="signupbutton" type="submit" value="Créer un compte" /></span>
-                <br/>
                 <p>Code d'Inscription : <input type="text" name="Acode" value="<?php echo toUser($Acode); ?>"/></p>
-                <p class="verify"><?php echo toUser(Vacode($Acode)); ?></p>
+                <p class="verify"><?php echo toUser($M_Acode); ?></p>
                 <br/>
+                <span><input id="signupbutton" type="submit" value="Créer un compte" /></span>
                 <p>Déjà un compte ? <button id="loginbutton" type="button" onclick="">Se connecter</button></p>
                 <input type="hidden" name="pass" value="1"/>
                 <input type="hidden" name="state" value="1">
