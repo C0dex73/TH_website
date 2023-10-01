@@ -7,19 +7,26 @@
         <title>vérification E-mail</title>
     </head>
     <body>
-        <form id="emailform" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-            <p>Code de vérification : <input type="text" name="code"/></p>
-            <input type="hidden" name="email" value="<?php echo $email; ?>"/>
-            <input type="hidden" name="state" value="0"/>
-            <input type="hidden" name="pass" value="1"/>
-            <span><input type="submit" value="Vérifier"/></span>
-            <span><button id="killbutton" type="button" onclick="">Abandonner</button></span>
-        </form>
+        <!--TODO : warn about killing = suppr data if not registered-->
+        <div class="formdiv">
+            <form id="emailform" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+                <p>Code de vérification : <input type="text" name="vCode"/></p>
+                <p class="verify"><?php echo toUser($correct); ?></p>
+                <p>E-mail : <input type="text" name="email" value="<?php echo toUser($email); ?>"/></p>
+                <p class="verify"><?php echo toUser($Cemail); ?></p>
+                <input type="hidden" name="state" value="0"/>
+                <input type="hidden" name="pass" value="1"/>
+                <span><input type="submit" value="Vérifier"/></span>
+                <span><button id="killbutton" type="button" onclick="">Abandonner</button></span>
+            </form>
+        </div>
         <form id="killform" class="invisible" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-            <input type="hidden" name="state" value=""/>
+            <input type="hidden" name="state" value="-3"/>
+            <input type="hidden" name="pass" value="1"/>
+            <input type="hidden" name="email" value="<?php echo $email; ?>"/>
         </form>
-        <!--LOGS AND SCRIPTS-->
-        <input id="log" type="hidden" name="log" value="<?php echo $log; ?>"/>
+        <!--&SCRIPTS-->
+        <script type="text/javascript" src="../js/jQueryUi/external/jquery/jquery.js"></script>
         <script type="text/javascript" src="../js/index.js"></script>
         <script type="text/javascript" src="../js/email.js"></script>
     </body>

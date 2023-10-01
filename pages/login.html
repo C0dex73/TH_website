@@ -7,7 +7,7 @@
         <title>Connection</title>
     </head>
     <body>
-        <div id="formdiv">
+        <div class="formdiv">
             <form id="loginform" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
                 <p>Nom d'utilisateur : <input type="text" name="username" value=<?php echo '"' . toUser($username) . '"' ?>/></p>
                 <p class="verify"><?php echo usernameVerify($username, false);?></p>
@@ -16,6 +16,7 @@
                 <span><input type="submit" value="Connection"/></span>
                 <br/>
                 <p>Pas de compte ? <button id="signupbutton" type="button" onclick="">Créer un compte</button></p>
+                <p>E-mail pas encore vérifiée ? <button id="emailbutton" type="button" onclick ="">Vérifier son E-mail</button></p>
                 <input type="hidden" name="pass" value="1"/>
                 <input type="hidden" name="state" value="-2"/>
             </form>
@@ -23,8 +24,11 @@
         <form id="signupform" class="invisible" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
             <input type="hidden" name="state" value="1">
         </form>
-        <!--LOGS AND SCRIPTS-->
-        <input id="log" type="hidden" name="log" value="<?php echo $log; ?>"/>
+        <form id="emailform" class="invisible" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+            <input type="hidden" name="state" value="0">
+        </form>
+        <!--&SCRIPTS-->
+        <script type="text/javascript" src="../js/jQueryUi/external/jquery/jquery.js"></script>
         <script type="text/javascript" src="../js/index.js"></script>
         <script type="text/javascript" src="../js/login.js"></script>
     </body>

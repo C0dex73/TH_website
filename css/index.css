@@ -3,7 +3,7 @@ body {
     align-items: center;
 }
 
-#formdiv {
+div.formdiv {
     text-align: center;
     justify-content: center;
     display: block;
