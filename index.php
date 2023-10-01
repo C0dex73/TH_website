@@ -8,7 +8,6 @@ define('CONFIG', $config);
 //* DATA BASE LOGIN (TEMP) + VARS DEF
 
 $servername = CONFIG['SERVERNAME'];
-var_dump($servername);
 $username = CONFIG['USERNAME'];
 $password = CONFIG['PASSWORD'];
 $db = CONFIG['DB'];
