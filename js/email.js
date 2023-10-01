@@ -1,5 +1,7 @@
-function home(event){
-    document.getElementById("killform").submit();
-}
+$(()=>{
+    $('.formdiv').css("padding-top", ($(document).height()/2-$('#emailform').height()/2).toString() + "px");
 
-document.getElementById("killbutton").addEventListener("click", home);
+    $('#killbutton').on("click", (e) => {
+        $('#killform').submit();
+    });
+})

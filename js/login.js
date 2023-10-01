@@ -1,7 +1,25 @@
-function signUpSend(event) {
-    document.getElementById("signupform").submit();
-}
-
-document.getElementById("signupbutton").addEventListener("click", signUpSend);
-
-document.getElementById("formdiv").style.paddingTop = (window.innerHeight/2-document.getElementById("loginform").clientHeight/2).toString() + "px";
+$(()=>{  
+    $('.formdiv').css("padding-top", ($(document).height()/2-$('#loginform').height()/2).toString() + "px");
+    
+    if("<?php echo $Cemail;?>" == "OK"){
+        bootbox.prompt({
+            title: 'Please enter something:',
+            callback: function(result){
+                console.log(result);
+            },
+            buttons: {
+                cancel: {
+                    className: 'd-none'
+                }
+            }
+        });
+    }
+    
+    $('#signupbutton').on("click", (e) => {
+        $('#signupform').submit();
+    });
+    
+    $('#emailbutton').on("click", (e) => {
+        $('#emailform').submit();
+    })
+});
