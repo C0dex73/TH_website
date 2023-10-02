@@ -1,7 +1,7 @@
 TH website for [JDA High School](https://www.lyceejeannedarc.com/) <br/>
 
 - [PHP server](https://sourceforge.net/projects/xampp/) is needed to run the website correctly <br/>
-- [index.php](https://github.com/C0dex73/TH_website/blob/main/index.php) required a config.php file (rename [default_config.php](https://github.com/C0dex73/TH_website/blob/main/default_config.php) to config.php and set the values) <br/>
+- [index.php](https://github.com/C0dex73/TH_website/blob/main/index.php) required a config.php file (rename default_config.php to config.php in the [php folder](https://github.com/C0dex73/TH_website/tree/main/php) and set the values) <br/>
 - [SQL Data base](https://sourceforge.net/projects/xampp/) is needed to run the website correctly <br/>
 - Database login parameters can be found in config.php <br/>
 - Database's structure can be found in [database.sql](https://github.com/C0dex73/TH_website/blob/main/database.sql) <br/>
