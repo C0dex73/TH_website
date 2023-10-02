@@ -1,6 +1,8 @@
 body {
     background-color: blanchedalmond;
     align-items: center;
+    justify-content: center;
+    display:flex;
 }
 
 div.formdiv {
