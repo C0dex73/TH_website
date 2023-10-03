@@ -30,20 +30,20 @@ $token = $_GET['token'];
 $sql = 'SELECT `username` FrOM login WHERE `token`="' . $token . '"';
 $result = CONN->query($sql);
 if($result->num_rows > 0){
-    $username = $result->fetch_row()[0];
-    $sql = 'SELECT `title`,`author` FROM blog';
-    $result = CONN->query($sql);
-    if($result->num_rows > 0){
-        echo '<div class="bubbles">';
-        while($row = $result->fetch_assoc()) {
-            echo '<div class="bubble"><p><i> - ' . $row['author'] . '</i></p><h2>'. $row['title'] . '</h2></div>';
-        }
-        echo '</div>';
-    }else{
-        echo '<p><i>Tout est vide, pour l\'instant...</i></p>';
+    //TODO : post button
+}
+
+$username = $result->fetch_row()[0];
+$sql = 'SELECT `title`,`author` FROM blog';
+$result = CONN->query($sql);
+if($result->num_rows > 0){
+    echo '<div class="bubbles">';
+    while($row = $result->fetch_assoc()) {
+        echo '<div class="bubble"><p><i> - ' . $row['author'] . '</i></p><h2>'. $row['title'] . '</h2></div>';
     }
+    echo '</div>';
 }else{
-    echo '<p class="verify">Token invalide, veuillez vous reconnecter</p>';
+    echo '<p><i>Tout est vide, pour l\'instant...</i></p>';
 }
 
 
