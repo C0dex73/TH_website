@@ -6,3 +6,5 @@ TH website for [JDA High School](https://www.lyceejeannedarc.com/) <br/>
 - Database login parameters can be found in config.php <br/>
 - Database's structure can be found in [database.sql](https://github.com/C0dex73/TH_website/blob/main/database.sql) <br/>
 - This website is using [Jquery](https://code.jquery.com/jquery-3.6.0.js) <br/>
+
+Hosted at [jdath.fr](https://jdath.fr)
