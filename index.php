@@ -11,11 +11,11 @@ define('CONFIG', $config);
 //* DATA BASE LOGIN (TEMP) + VARS DEF
 
 $servername = CONFIG['SERVERNAME'];
-$username = CONFIG['USERNAME'];
+$dbusername = CONFIG['USERNAME'];
 $password = CONFIG['PASSWORD'];
 $db = CONFIG['DB'];
 
-$conn = new mysqli($servername, $username, $password, $db);
+$conn = new mysqli($servername, $dbusername, $password, $db);
 define('CONN', $conn);
 if (CONN->connect_error) { die("Connection failed: " . CONN->connect_error);}
 
@@ -36,15 +36,15 @@ $M_Acode = $Acode = $Cemail = $correct = $pass = $email = $state = $checkpasswor
 //* Process data before rendering
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $state = secureSet('state');
-    $pass = secureSet('pass');
+    $state = secureGet('state');
+    $pass = secureGet('pass');
     if($pass == '1'){
-        $Acode = secureSet('Acode');
-        $vCode = secureSet('vCode');
-        $username = secureSet('username');
-        $password = secureSet('password');
-        $email = secureSet('email');
-        $checkpassword = secureSet('checkpassword');
+        $Acode = secureGet('Acode');
+        $vCode = secureGet('vCode');
+        $username = secureGet('username');
+        $password = secureGet('password');
+        $email = secureGet('email');
+        $checkpassword = secureGet('checkpassword');
     }
 }
 

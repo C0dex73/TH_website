@@ -17,27 +17,39 @@ $config = include("./config.php");
 define('CONFIG', $config);
 
 $servername = CONFIG['SERVERNAME'];
-$username = CONFIG['USERNAME'];
+$dbusername = CONFIG['USERNAME'];
 $password = CONFIG['PASSWORD'];
 $db = CONFIG['DB'];
 
-$conn = new mysqli($servername, $username, $password, $db);
+$conn = new mysqli($servername, $dbusername, $password, $db);
 define('CONN', $conn);
 if (CONN->connect_error) { die("Connection failed: " . CONN->connect_error);}
 
-$token = $_GET['token'];
+$username = $token = '-1';
+$token = secureGet('token', 'get');
 
 $sql = 'SELECT `username` FrOM login WHERE `token`="' . $token . '"';
 $result = CONN->query($sql);
 if($result->num_rows > 0){
-    //TODO : post button
+    $username = $result->fetch_row()[0];
 }
 
-$username = $result->fetch_row()[0];
+
 $sql = 'SELECT `title`,`author` FROM blog';
 $result = CONN->query($sql);
 if($result->num_rows > 0){
     echo '<div class="bubbles">';
+    // TODO : post button
+    if($username != '-1'){
+        echo   '<div class="bubble" id="post">
+                <form class="invisible" method="post" action="../php/bubble.php">
+                <h1>Poster un article</h1>
+                <input type="hidden" id="token" name="token" value="' . $token . '"/>
+                <input type="hidden" 
+                </form>
+                </div>';
+    }
+    //end todo
     while($row = $result->fetch_assoc()) {
         echo '<div class="bubble"><p><i> - ' . $row['author'] . '</i></p><h2>'. $row['title'] . '</h2></div>';
     }

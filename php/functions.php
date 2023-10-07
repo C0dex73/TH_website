@@ -8,9 +8,18 @@
 
 
 
-function secureSet($key){
-    if(isset($_POST[$key])){
-        return $_POST[$key];
+function secureGet($key, $method = 'post'){
+    switch($method){
+        case 'post' :
+            if(isset($_POST[$key])){
+                return $_POST[$key];
+            }
+            break;
+        case 'get' :
+            if(isset($_GET[$key])){
+                return $_GET[$key];
+            }
+            break;
     }
     return "";
 }
@@ -22,6 +31,7 @@ function toUser($post){
     return $post;
 }
 
+//TODO : handle -1 username
 function usernameVerify($username, $signup){
     if($username == ""){
         return "Nom d'utilisateur invalide";
@@ -63,7 +73,7 @@ function passwordMatch($password1, $password2){
 }
 
 function login($_username, $_password){
-    if(usernameVerify($_username, false) != ""){
+    if(usernameVerify(toUser($_username), false) != ""){
         return "-1";
     }
     $sql = 'SELECT `Vcode` FROM `login` WHERE `password`="'. $_password . '" AND `username`="'. $_username . '"';
