@@ -8,3 +8,7 @@ TH website for [JDA High School](https://www.lyceejeannedarc.com/) <br/>
 - This website is using [Jquery](https://code.jquery.com/jquery-3.6.0.js) <br/>
 
 Hosted at [jdath.fr](https://jdath.fr)
+
+<b>Credits :</b><br/>
+PHP / HTML / JS by [Codex](https://github.com/C0dex73)<br/>
+CSS by [Ryzox](https://github.com/RyzoxDev)
