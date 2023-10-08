@@ -61,6 +61,6 @@ if($result->num_rows > 0){
 
 
 echo '<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="../js/index.js"></script>
+<script type="text/javascript" src="../js/main.js"></script>
 <script type="text/javascript" src="../js/blog.js"></script>
 </body></html>'; ?>

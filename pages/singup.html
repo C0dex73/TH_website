@@ -2,26 +2,56 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8" />
-        
         <link rel="stylesheet" href="../css/style.css"/>
         <link rel="stylesheet" href="../css/signup.css"/>
         <title>Créer un compte</title>
     </head>
     <body>
         <div class="formdiv">
-            <form id="signup" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-                <p>Nom d'utilisateur : <input type="text" name="username" value="<?php echo toUser($username); ?>"/></p>
-                <p class="verify"><?php echo usernameVerify($username, true);?></p>
-                <p>Mot de passe : <input type="password" name="password" value="<?php echo toUser($password); ?>"/></p>
-                <p>Confirmer le mot de passe : <input type="password" name="checkpassword"/></p>
-                <p class="verify"><?php echo passwordMatch($password, $checkpassword)?></p>
-                <p>E-mail : <input type="text" name="email" value="<?php echo toUser($email); ?>"/></p>
-                <p class="verify"><?php echo emailVerify($email);?></p>
-                <p>Code d'Inscription : <input type="text" name="Acode" value="<?php echo toUser($Acode); ?>"/></p>
-                <p class="verify"><?php echo toUser($M_Acode); ?></p>
-                <br/>
-                <span><input id="signupbutton" type="submit" value="Créer un compte" /></span>
-                <p>Déjà un compte ? <button id="loginbutton" type="button" onclick="">Se connecter</button></p>
+            <h2>Créer un compte</h2>
+            <form id="mainform" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+                <!--& USERNAME &-->
+                <div class="userbox">
+                    <input type="text" name="username" value="<?php echo toUser($username); ?>"/>
+                    <label>Nom d'utilisateur : </label>
+                    <p class="verify"><?php echo usernameVerify($username, true);?></p>
+                </div>
+                <!--& PASSWORD &-->
+                <div class="userbox">
+                    <input type="password" name="password" value="<?php echo toUser($password); ?>"/>
+                    <label>Mot de passe : </label>
+                    <p class="transparent"></p>
+                </div>
+                <!--& PASSWORD CONFIMATION &-->
+                <div class="userbox">
+                    <input type="password" name="checkpassword"/>
+                    <label>Confirmer le mot de passe : </label>
+                    <p class="verify"><?php echo passwordMatch($password, $checkpassword)?></p>
+                </div>
+                <!--& EMAIL &-->
+                <div class="userbox">
+                    <input type="text" name="email" value="<?php echo toUser($email); ?>"/>
+                    <label>E-mail : </label>
+                    <p class="verify"><?php echo emailVerify($email);?></p>
+                </div>
+                <!--& ACTIVATION CODE &-->
+                <div class="userbox">
+                    <input type="text" name="Acode" value="<?php echo toUser($Acode); ?>"/>
+                    <label>Code d'Activation : </label>
+                    <p class="verify"><?php echo toUser($M_Acode); ?></p>
+                </div>
+                <!--& SUBMIT &-->
+                <button id="submitbutton" type="button" onclick="">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Créer un compte
+                </button>
+                <!--& LOGIN &-->
+                <div id="userlogin">
+                    Déjà un compte ? <button id="loginbutton" type="button" onclick="">Se connecter</button>
+                </div>
                 <input type="hidden" name="pass" value="1"/>
                 <input type="hidden" name="state" value="1">
             </form>
@@ -29,9 +59,9 @@
         <form id="loginform" class="invisible" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
             <input type="hidden" name="state" value="">
         </form>
-        <!--&SCRIPTS-->
+        <!--& SCRIPTS &-->
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script type="text/javascript" src="../js/index.js"></script>
+        <script type="text/javascript" src="../js/main.js"></script>
         <script type="text/javascript" src="../js/signup.js"></script>
     </body>
 </html>

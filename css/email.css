@@ -9,23 +9,12 @@ body {
     background: linear-gradient(#141e30, #243b55)
 }
 
-form>*{
-    display:block;
-}
-
-.verify{
-    color: red;
-    font-family: system-ui;
-    margin-top: 0px;
-    margin-bottom: 30px;
-}
-
-.formdiv {
+.email-box {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 380px;
-    padding: 35px;
+    width: 400px;
+    padding: 40px;
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, .5);
     box-sizing: border-box;
@@ -33,47 +22,49 @@ form>*{
     border-radius: 10px;
 }
 
-.formdiv h2 {
+.email-box h2 {
     margin: 0 0 30px;
     padding: 0;
     color: #fff;
     text-align: center;
 }
 
-.formdiv .userbox {
+.email-box .user-box {
     position: relative;
 }
 
-.formdiv .userbox input {
+.email-box .user-box input {
     width: 100%;
     padding: 10px 0;
     font-size: 16px;
     color: #fff;
+    margin-bottom: 30px;
     border: none;
     border-bottom: 1px solid #fff;
     outline: none;
     background: transparent;
 }
 
-.formdiv .userbox label {
+.email-box .user-box label {
     position: absolute;
     top: 0;
     left: 0;
     padding: 10px 0;
+    font-size: 15px;
     color: #fff;
     pointer-events: none;
     transition: .5s;
 }
 
-.formdiv .userbox input:focus~label,
-.formdiv .userbox input:valid~label {
+.email-box .user-box input:focus~label,
+.email-box .user-box input:valid~label {
     top: -20px;
     left: 0;
     color: #03e9f4;
-    font-size: 15px;
+    font-size: 12px;
 }
 
-.formdiv form button {
+.email-box form .a {
     position: relative;
     display: inline-block;
     padding: 10px 20px;
@@ -83,12 +74,11 @@ form>*{
     text-transform: none;
     overflow: hidden;
     transition: .5s;
-    margin-top: 30px;
+    margin-top: 40px;
     letter-spacing: 4px;
-    background-color: transparent;
-    border:none;
 }
-.formdiv button:hover {
+
+.email-box .a:hover {
     background: #03e9f4;
     color: #fff;
     border-radius: 5px;
@@ -97,17 +87,18 @@ form>*{
         0 0 50px #03e9f4,
         0 0 100px #03e9f4;
 }
-.formdiv button span {
+
+.email-box .a span {
     position: absolute;
     display: block;
 }
-.formdiv button span:nth-child(1) {
+.email-box .a span:nth-child(1) {
     top: 0;
     left: -100%;
     width: 100%;
     height: 2px;
     background: linear-gradient(90deg, transparent, #03e9f4);
-    animation: btn-anim1 2s linear infinite;
+    animation: btn-anim1 1s linear infinite;
 }
 @keyframes btn-anim1 {
     0% {
@@ -119,14 +110,14 @@ form>*{
         left: 100%;
     }
 }
-.formdiv button span:nth-child(2) {
+.email-box .a span:nth-child(2) {
     top: -100%;
     right: 0;
     width: 2px;
     height: 100%;
     background: linear-gradient(180deg, transparent, #03e9f4);
-    animation: btn-anim2 2s linear infinite;
-    animation-delay: .5s;
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s;
 }
 @keyframes btn-anim2 {
     0% {
@@ -138,14 +129,14 @@ form>*{
         top: 100%;
     }
 }
-.formdiv button span:nth-child(3) {
+.email-box .a span:nth-child(3) {
     bottom: 0;
     right: 100%;
     width: 100%;
     height: 2px;
     background: linear-gradient(270deg, transparent, #03e9f4);
-    animation: btn-anim3 2s linear infinite;
-    animation-delay: 1s;
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s;
 }
 @keyframes btn-anim3 {
     0% {
@@ -157,14 +148,14 @@ form>*{
         right: 100%;
     }
 }
-.formdiv button span:nth-child(4) {
+.email-box .a span:nth-child(4) {
     bottom: -100%;
     left: 0;
     width: 2px;
     height: 100%;
     background: linear-gradient(360deg, transparent, #03e9f4);
-    animation: btn-anim4 2s linear infinite;
-    animation-delay: 1.5s;
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s;
 }
 @keyframes btn-anim4 {
     0% {
@@ -177,29 +168,23 @@ form>*{
     }
 }
 
-.t {
-    background: none;
+.cancel a {
+    position: relative;
+    display: inline-block;
+    padding: 6px;
+    margin-left: 75%;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: .5s;
+    color: rgba(255, 0, 0, 0.205);
 }
 
-.user-singup {
-    padding-top: 10%;
-    padding-left: 23%;
-    color: #fff;
-}
-
-.user-singup button:hover {
-    color: #03e9f4;
-}
-
-.transparent {
-    color : transparent;
-}
-
-.formdiv>form{
-    display:grid;
-}
-
-#submitbutton {
-    justify-self: center;
-    align-self: center;
+.cancel a:hover {
+    background: rgba(255, 0, 0, 0.205);
+    color: red;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.205),
+        0 0 25px rgba(255, 0, 0, 0.205),
+        0 0 50px rgba(255, 0, 0, 0.205),
+        0 0 100px rgba(255, 0, 0, 0.205);
 }

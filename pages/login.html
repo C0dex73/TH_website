@@ -9,15 +9,39 @@
     </head>
     <body>
         <div class="formdiv">
-            <form id="loginform" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-                <p>Nom d'utilisateur : <input type="text" name="username" value=<?php echo '"' . toUser($username) . '"' ?>/></p>
+            <h2>Connexion</h2>
+            <form id="mainform" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+                <div class="userbox">
+                    <input type="text" name="username" value=<?php echo '"' . toUser($username) . '"' ?>/>
+                    <label>Nom d'utilisateur : </label>
                 <p class="verify"><?php echo usernameVerify($username, false);?></p>
-                <p>Mot de passe : <input type="password" name="password" value=<?php echo '"' . toUser($password) . '"' ?>/></p>
+                </div>
+                <div class="userbox">
+                    <input type="password" name="password" value=<?php echo '"' . toUser($password) . '"' ?>/>
+                    <label>Mot de passe : </label>
                 <p class="verify"><?php echo toUser($correct);?></p>
-                <span><input type="submit" value="Connection"/></span>
-                <br/>
-                <p>Pas de compte ? <button id="signupbutton" type="button" onclick="">Créer un compte</button></p>
-                <p>E-mail pas encore vérifiée ? <button id="emailbutton" type="button" onclick ="">Vérifier son E-mail</button></p>
+                </div>
+                <button id="submitbutton" type="button" onclick="">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Connexion
+                </button>
+                <button id="signupbutton" type="button" onclick="">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Créer un compte
+                </button>
+                <button id="emailbutton" type="button" onclick ="">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Vérifier son E-mail
+                </button>
                 <input type="hidden" name="pass" value="1"/>
                 <input type="hidden" name="state" value="-2"/>
                 <!-- TODO : watch button -->
@@ -36,7 +60,7 @@
             }
         </script>
         <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script type="text/javascript" src="../js/index.js"></script>
+        <script type="text/javascript" src="../js/main.js"></script>
         <script type="text/javascript" src="../js/login.js"></script>
     </body>
 </html>
