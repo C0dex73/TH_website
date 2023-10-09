@@ -10,7 +10,7 @@
     <body>
         <div class="formdiv">
             <h2>Connexion</h2>
-            <form id="mainform" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+            <form id="mainform" method="post" action="">
                 <div class="userbox">
                     <input type="text" name="username" value=<?php echo '"' . toUser($username) . '"' ?>/>
                     <label>Nom d'utilisateur : </label>
@@ -53,10 +53,10 @@
                 <!-- TODO : watch button -->
             </form>
         </div>
-        <form id="signupform" class="invisible" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+        <form id="signupform" class="invisible" method="post" action="">
             <input type="hidden" name="state" value="1">
         </form>
-        <form id="emailform" class="invisible" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+        <form id="emailform" class="invisible" method="post" action="">
             <input type="hidden" name="state" value="0">
         </form>
         <!--&SCRIPTS-->

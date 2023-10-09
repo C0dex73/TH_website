@@ -9,7 +9,7 @@
     <body>
         <div class="formdiv">
             <h2>Créer un compte</h2>
-            <form id="mainform" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+            <form id="mainform" method="post" action="">
                 <!--& USERNAME &-->
                 <div class="userbox">
                     <input type="text" name="username" value="<?php echo toUser($username); ?>"/>
@@ -56,7 +56,7 @@
                 <input type="hidden" name="state" value="1">
             </form>
         </div>
-        <form id="loginform" class="invisible" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+        <form id="loginform" class="invisible" method="post" action="">
             <input type="hidden" name="state" value="">
         </form>
         <!--& SCRIPTS &-->

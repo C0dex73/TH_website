@@ -10,7 +10,7 @@
     <body>
         <!--TODO : warn about killing = suppr data if not registered-->
         <div class="formdiv">
-            <form id="emailform" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+            <form id="emailform" method="post" action="">
                 <p>Code de vérification : <input type="text" name="vCode"/></p>
                 <p class="verify"><?php echo toUser($correct); ?></p>
                 <p>E-mail : <input type="text" name="email" value="<?php echo toUser($email); ?>"/></p>
@@ -21,7 +21,7 @@
                 <span><button id="killbutton" type="button" onclick="">Abandonner</button></span>
             </form>
         </div>
-        <form id="killform" class="invisible" method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+        <form id="killform" class="invisible" method="post" action="">
             <input type="hidden" name="state" value="-3"/>
             <input type="hidden" name="pass" value="1"/>
             <input type="hidden" name="email" value="<?php echo $email; ?>"/>
