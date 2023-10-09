@@ -14,6 +14,7 @@ $servername = CONFIG['SERVERNAME'];
 $dbusername = CONFIG['USERNAME'];
 $password = CONFIG['PASSWORD'];
 $db = CONFIG['DB'];
+$version = CONFIG['VERSION'];
 
 $conn = new mysqli($servername, $dbusername, $password, $db);
 define('CONN', $conn);

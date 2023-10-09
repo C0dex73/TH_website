@@ -4,6 +4,7 @@
         'SERVERNAME' => "",
         'USERNAME' => "",
         'PASSWORD' => "",
-        'DB' => ""
+        'DB' => "",
+        'VERSION' => "0.2.2"
     );
 ?>

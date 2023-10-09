@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<link rel="stylesheet" href="../css/blog.css">
-<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/blog.css?<?php echo $version ?>"/>
+<link rel="stylesheet" href="../css/style.css?<?php echo $version ?>"/>
 </head>
 <body>';
 
@@ -20,6 +20,7 @@ $servername = CONFIG['SERVERNAME'];
 $dbusername = CONFIG['USERNAME'];
 $password = CONFIG['PASSWORD'];
 $db = CONFIG['DB'];
+$version = CONFIG['VERSION'];
 
 $conn = new mysqli($servername, $dbusername, $password, $db);
 define('CONN', $conn);
@@ -60,7 +61,7 @@ if($result->num_rows > 0){
 
 
 
-echo '<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script type="text/javascript" src="../js/main.js"></script>
-<script type="text/javascript" src="../js/blog.js"></script>
+echo '<script src="https://code.jquery.com/jquery-3.6.0.js?<?php echo $version ?>"></script>
+<script type="text/javascript" src="../js/main.js?<?php echo $version ?>"></script>
+<script type="text/javascript" src="../js/blog.js?<?php echo $version ?>"></script>
 </body></html>'; ?>
