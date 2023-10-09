@@ -76,32 +76,46 @@ form>*{
 .formdiv form button {
     position: relative;
     display: inline-block;
-    padding: 10px 20px;
-    color: #03e9f4;
-    font-size: 16px;
     text-decoration: none;
     text-transform: none;
+    background-color: transparent;
+    border:none;
+    font-size: 16px;
+}
+
+.formdiv form button:not(.link){
     overflow: hidden;
     transition: .5s;
     margin-top: 30px;
     letter-spacing: 4px;
-    background-color: transparent;
-    border:none;
+    color: #03e9f4;
+    padding: 10px 20px;
 }
-.formdiv button:hover {
-    background: #03e9f4;
+
+.formdiv form button.link {
+    color: #0043ee;
+    text-decoration-line: none;
+}
+
+.formdiv form button.link:hover {
+    color: #551A8B;
+    text-decoration-line: underline;
+}
+
+.formdiv button:not(.link):hover {
+    background: rgba(2, 241, 254, 0.5);
     color: #fff;
     border-radius: 5px;
-    box-shadow: 0 0 5px #03e9f4,
-        0 0 25px #03e9f4,
-        0 0 50px #03e9f4,
-        0 0 100px #03e9f4;
+    box-shadow: 0 0 5px rgba(2, 241, 254, 0.5),
+        0 0 25px rgba(2, 241, 254, 0.5),
+        0 0 50px rgba(2, 241, 254, 0.5),
+        0 0 100px rgba(2, 241, 254, 0.5);
 }
-.formdiv button span {
+.formdiv button:not(.link) span {
     position: absolute;
     display: block;
 }
-.formdiv button span:nth-child(1) {
+.formdiv button:not(.link) span:nth-child(1) {
     top: 0;
     left: -100%;
     width: 100%;
@@ -119,7 +133,7 @@ form>*{
         left: 100%;
     }
 }
-.formdiv button span:nth-child(2) {
+.formdiv button:not(.link) span:nth-child(2) {
     top: -100%;
     right: 0;
     width: 2px;
@@ -138,7 +152,7 @@ form>*{
         top: 100%;
     }
 }
-.formdiv button span:nth-child(3) {
+.formdiv button:not(.link) span:nth-child(3) {
     bottom: 0;
     right: 100%;
     width: 100%;
@@ -157,7 +171,7 @@ form>*{
         right: 100%;
     }
 }
-.formdiv button span:nth-child(4) {
+.formdiv button:not(.link) span:nth-child(4) {
     bottom: -100%;
     left: 0;
     width: 2px;
@@ -187,7 +201,7 @@ form>*{
     color: #fff;
 }
 
-.user-singup button:hover {
+.user-singup button:not(.link):hover {
     color: #03e9f4;
 }
 
@@ -199,7 +213,7 @@ form>*{
     display:grid;
 }
 
-#submitbutton {
+#submitbutton:not(.link) {
     justify-self: center;
     align-self: center;
 }

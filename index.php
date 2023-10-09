@@ -26,7 +26,6 @@ $M_Acode = $Acode = $Cemail = $correct = $pass = $email = $state = $checkpasswor
 
 
 
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MAIN SCRIPT ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \\
 
 
