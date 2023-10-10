@@ -1,5 +1,11 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+require 'vendor/autoload.php';
+require 'php/mail.php';
+
+
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ FUNCTIONS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \\
 
 
@@ -113,9 +119,34 @@ function Vacode($_Acode){
     return "";
 }
 
-//TODO : send mail (waiting for server)
-function sendMail($_email, $_Vcode){
-
+function sendMail($_email, $_Vcode, $_username){
+    $mail = new PHPMailer;
+    $mail->isSMTP();
+    $mail->SMTPOptions = array(
+        'ssl' => array(
+            'verify_peer' => false,
+            'verify_peer_name' => false,
+            'allow_self_signed' => true
+        )
+    );
+    $mail->Host = 'smtp.hostinger.fr';
+    $mail->Port = 587;
+    $mail->SMTPAuth = true;
+    $mail->Username = 'admins@jdath.fr';
+    $mail->Password = '@dm1ns4Jd@.fr';
+    $mail->setFrom('admins@jdath.fr', 'Admins');
+    //$mail->addReplyTo('admins@jdath.fr', 'Admins');
+    $mail->addAddress($_email, $_username);
+    $mail->Subject = 'Code de vérification';
+    //$mail->msgHTML(file_get_contents('message.html'), __DIR__);
+    $mail->isHTML();
+    $mail->CharSet = 'UTF-8';
+    $mail->Body = buildMail($_Vcode, $_username);
+    if (!$mail->send()) {
+        echo '-1';
+    } else {
+        echo '1';
+    }
 }
 
 function unique_id($l = 8) {

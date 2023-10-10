@@ -58,7 +58,7 @@ switch ($state){
             $token = unique_id($l = 16);
             $sql = "INSERT INTO `login` (`username`, `password`, `token`, `email`, `Vcode`, `VcodeEx`) VALUES ('". $username ."', '" . $password . "', '". $token . "', '" . $email . "', '" . $vCode . "', '". $exVcode ."') ";
             $result = $conn->query($sql);
-            sendMail($email, $vCode);
+            sendMail($email, $vCode, $username);
             $state = '0';
         }
         $M_Acode = Vacode($Acode);
