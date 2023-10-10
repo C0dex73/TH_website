@@ -20,7 +20,7 @@ $servername = CONFIG['SERVERNAME'];
 $dbusername = CONFIG['USERNAME'];
 $password = CONFIG['PASSWORD'];
 $db = CONFIG['DB'];
-$version = CONFIG['VERSION'];
+$version = CONFIG['CSSVERSION'];
 
 $conn = new mysqli($servername, $dbusername, $password, $db);
 define('CONN', $conn);

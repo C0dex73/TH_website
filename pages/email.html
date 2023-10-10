@@ -10,15 +10,35 @@
     <body>
         <!--TODO : warn about killing = suppr data if not registered-->
         <div class="formdiv">
-            <form id="emailform" method="post" action="">
-                <p>Code de vérification : <input type="text" name="vCode"/></p>
-                <p class="verify"><?php echo toUser($correct); ?></p>
-                <p>E-mail : <input type="text" name="email" value="<?php echo toUser($email); ?>"/></p>
-                <p class="verify"><?php echo toUser($Cemail); ?></p>
+            <form id="mainform" method="post" action="">
+                <div class="userbox">
+                    <input type="text" name="vCode"/>
+                    <label>Code de vérification : </label>
+                    <p class="verify"><?php echo toUser($correct); ?></p>
+                </div>
+                <div class="userbox">
+                    <input type="text" name="email" value="<?php echo toUser($email); ?>"/>
+                    <label>E-mail : </label>
+                    <p class="verify"><?php echo toUser($Cemail); ?></p>
+                </div>
+                <div id="buttons">
+                    <button id="killbutton" type="button" onclick="">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Abandonner
+                    </button>
+                    <button id="verifbutton" type="button" onclick="">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                        Vérifier
+                    </button>
+                </div>
                 <input type="hidden" name="state" value="0"/>
                 <input type="hidden" name="pass" value="1"/>
-                <span><input type="submit" value="Vérifier"/></span>
-                <span><button id="killbutton" type="button" onclick="">Abandonner</button></span>
             </form>
         </div>
         <form id="killform" class="invisible" method="post" action="">

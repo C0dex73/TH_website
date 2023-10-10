@@ -1,8 +1,6 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-require 'vendor/autoload.php';
-require 'php/mail.php';
+
 
 
 

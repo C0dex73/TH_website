@@ -10,7 +10,7 @@
 //*script
 
 //*Import functions
-include("./functions.php");
+include("functions.php");
 
 //! configs are taken from the config.php file, see README.md for details
 $config = include("./config.php");
@@ -20,7 +20,7 @@ $servername = CONFIG['SERVERNAME'];
 $dbusername = CONFIG['USERNAME'];
 $password = CONFIG['PASSWORD'];
 $db = CONFIG['DB'];
-$version = CONFIG['VERSION'];
+$version = CONFIG['CSSVERSION'];
 
 $conn = new mysqli($servername, $dbusername, $password, $db);
 define('CONN', $conn);

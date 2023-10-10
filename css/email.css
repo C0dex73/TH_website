@@ -1,0 +1,26 @@
+.formdiv form button:not(.link)#killbutton{
+    color : red;
+}
+
+.formdiv button:not(.link)#killbutton:hover {
+    background: rgba(254, 2, 2, 0.5);
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(254, 2, 2, 0.5),
+        0 0 25px rgba(254, 2, 2, 0.5),
+        0 0 50px rgba(254, 2, 2, 0.5),
+        0 0 100px rgba(254, 2, 2, 0.5);
+}
+
+.formdiv button:not(.link)#killbutton span:nth-child(1) {
+    background: linear-gradient(90deg, transparent, #f40303);
+}
+.formdiv button:not(.link)#killbutton span:nth-child(2) {
+    background: linear-gradient(180deg, transparent, #f40303);
+}
+.formdiv button:not(.link)#killbutton span:nth-child(3) {
+    background: linear-gradient(270deg, transparent, #f40303);
+}
+.formdiv button:not(.link)#killbutton span:nth-child(4) {
+    background: linear-gradient(360deg, transparent, #f40303);
+}

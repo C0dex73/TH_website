@@ -14,12 +14,12 @@
                 <div class="userbox">
                     <input type="text" name="username" value=<?php echo '"' . toUser($username) . '"' ?>/>
                     <label>Nom d'utilisateur : </label>
-                <p class="verify"><?php echo usernameVerify($username, false);?></p>
+                    <p class="verify"><?php echo usernameVerify($username, false);?></p>
                 </div>
                 <div class="userbox">
                     <input type="password" name="password" value=<?php echo '"' . toUser($password) . '"' ?>/>
                     <label>Mot de passe : </label>
-                <p class="verify"><?php echo toUser($correct);?></p>
+                    <p class="verify"><?php echo toUser($correct);?></p>
                 </div>
                 <button id="submitbutton" type="button" onclick="">
                     <span></span>
