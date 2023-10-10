@@ -134,11 +134,9 @@ function sendMail($_email, $_Vcode, $_username){
     $mail->SMTPAuth = true;
     $mail->Username = 'admins@jdath.fr';
     $mail->Password = '@dm1ns4Jd@.fr';
-    $mail->setFrom('admins@jdath.fr', 'Admins');
-    //$mail->addReplyTo('admins@jdath.fr', 'Admins');
+    $mail->setFrom('admins@jdath.fr', 'TH Blog admin team');
     $mail->addAddress($_email, $_username);
     $mail->Subject = 'Code de vérification';
-    //$mail->msgHTML(file_get_contents('message.html'), __DIR__);
     $mail->isHTML();
     $mail->CharSet = 'UTF-8';
     $mail->Body = buildMail($_Vcode, $_username);
