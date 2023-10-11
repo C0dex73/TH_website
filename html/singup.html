@@ -42,7 +42,7 @@
                     <p class="verify"><?php echo toUser($M_Acode); ?></p>
                 </div>
                 <!--& SUBMIT &-->
-                <button id="submitbutton" type="button" onclick="">
+                <button id="submitbutton" class="styled" type="button" onclick="">
                     <span></span>
                     <span></span>
                     <span></span>
@@ -50,15 +50,19 @@
                     Créer un compte
                 </button>
                 <!--& LOGIN &-->
-                <div id="userlogin">
-                    Déjà un compte ? <button id="loginbutton" class="link" type="button" onclick="">Se connecter</button>
-                </div>
+                <button id="killbutton" class="styled thin" type="button" onclick="">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Annuler
+                </button>
                 <input type="hidden" name="pass" value="1"/>
                 <input type="hidden" name="state" value="1">
             </form>
         </div>
         <form id="loginform" class="invisible" method="post" action="">
-            <input type="hidden" name="state" value="">
+            <input type="hidden" name="state" value="2">
         </form>
         <!--& SCRIPTS &-->
         <script src="https://code.jquery.com/jquery-3.6.0.js?<?php echo $version ?>"></script>

@@ -22,14 +22,14 @@
                     <p class="verify"><?php echo toUser($Cemail); ?></p>
                 </div>
                 <div id="buttons">
-                    <button id="killbutton" type="button" onclick="">
+                    <button id="killbutton" class="styled" type="button" onclick="">
                         <span></span>
                         <span></span>
                         <span></span>
                         <span></span>
-                        Abandonner
+                        Annuler
                     </button>
-                    <button id="verifbutton" type="button" onclick="">
+                    <button id="verifbutton" class="styled" type="button" onclick="">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -39,11 +39,11 @@
                 </div>
                 <input type="hidden" name="state" value="0"/>
                 <input type="hidden" name="pass" value="1"/>
+                <input type="hidden" name="email" value="<?php echo $email; ?>"/>
             </form>
         </div>
         <form id="killform" class="invisible" method="post" action="">
-            <input type="hidden" name="state" value="-3"/>
-            <input type="hidden" name="pass" value="1"/>
+            <input type="hidden" name="state" value="4"/>
             <input type="hidden" name="email" value="<?php echo $email; ?>"/>
         </form>
         <!--&SCRIPTS-->

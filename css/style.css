@@ -1,12 +1,24 @@
 html {
     height: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: 0px;
+}
+
+html::-webkit-scrollbar {
+    display : none;
+}
+
+html::-webkit-scrollbar-button {
+    display : none;
 }
 
 body {
     margin: 0;
     padding: 0;
-    font-family: sans-serif;
-    background: linear-gradient(#141e30, #243b55)
+    background: linear-gradient(#141e30, #243b55) no-repeat;
+    min-width: 400px;
+    height:100%;
+    background-attachment:fixed;
 }
 
 form>*{
@@ -73,7 +85,7 @@ form>*{
     font-size: 15px;
 }
 
-.formdiv form button {
+form button.styled {
     position: relative;
     display: inline-block;
     text-decoration: none;
@@ -83,7 +95,7 @@ form>*{
     font-size: 16px;
 }
 
-.formdiv form button:not(.link){
+form button:not(.link).styled{
     overflow: hidden;
     transition: .5s;
     margin-top: 30px;
@@ -102,7 +114,7 @@ form>*{
     text-decoration-line: underline;
 }
 
-.formdiv button:not(.link):hover {
+button:not(.link).styled:hover {
     background: rgba(2, 241, 254, 0.5);
     color: #fff;
     border-radius: 5px;
@@ -111,11 +123,11 @@ form>*{
         0 0 50px rgba(2, 241, 254, 0.5),
         0 0 100px rgba(2, 241, 254, 0.5);
 }
-.formdiv button:not(.link) span {
+button:not(.link).styled span {
     position: absolute;
     display: block;
 }
-.formdiv button:not(.link) span:nth-child(1) {
+button:not(.link).styled span:nth-child(1) {
     top: 0;
     left: -100%;
     width: 100%;
@@ -133,7 +145,7 @@ form>*{
         left: 100%;
     }
 }
-.formdiv button:not(.link) span:nth-child(2) {
+button:not(.link).styled span:nth-child(2) {
     top: -100%;
     right: 0;
     width: 2px;
@@ -152,7 +164,7 @@ form>*{
         top: 100%;
     }
 }
-.formdiv button:not(.link) span:nth-child(3) {
+button:not(.link).styled  span:nth-child(3) {
     bottom: 0;
     right: 100%;
     width: 100%;
@@ -171,7 +183,7 @@ form>*{
         right: 100%;
     }
 }
-.formdiv button:not(.link) span:nth-child(4) {
+button:not(.link).styled span:nth-child(4) {
     bottom: -100%;
     left: 0;
     width: 2px;
@@ -216,4 +228,38 @@ form>*{
 #submitbutton:not(.link) {
     justify-self: center;
     align-self: center;
+}
+
+
+
+button.thin {
+    padding-left:10px !important;
+    padding-right:10px !important;
+}
+
+.formdiv form button:not(.link)#killbutton{
+    color : red;
+}
+
+.formdiv button:not(.link)#killbutton:hover {
+    background: rgba(254, 2, 2, 0.5);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(254, 2, 2, 0.5),
+        0 0 25px rgba(254, 2, 2, 0.5),
+        0 0 50px rgba(254, 2, 2, 0.5),
+        0 0 100px rgba(254, 2, 2, 0.5);
+}
+
+.formdiv button:not(.link)#killbutton span:nth-child(1) {
+    background: linear-gradient(90deg, transparent, red);
+}
+.formdiv button:not(.link)#killbutton span:nth-child(2) {
+    background: linear-gradient(180deg, transparent, red);
+}
+.formdiv button:not(.link)#killbutton span:nth-child(3) {
+    background: linear-gradient(270deg, transparent, red);
+}
+.formdiv button:not(.link)#killbutton span:nth-child(4) {
+    background: linear-gradient(360deg, transparent, red);
 }

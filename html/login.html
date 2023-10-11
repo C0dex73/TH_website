@@ -21,26 +21,31 @@
                     <label>Mot de passe : </label>
                     <p class="verify"><?php echo toUser($correct);?></p>
                 </div>
-                <button id="submitbutton" type="button" onclick="">
+                <button id="submitbutton" class="styled" type="button" onclick="">
                     <span></span>
                     <span></span>
                     <span></span>
                     <span></span>
                     Connexion
                 </button>
-                <div id="signup">
-                    Pas encore de compte ?
-                    <button id="signupbutton" class="link" type="button" onclick="">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        Créer un compte
-                    </button>
-                </div>
+                <button id="killbutton" class="styled thin" type="button" onclick="">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Annuler
+                </button>
+                <button id="signupbutton" class="styled thin" type="button" onclick="">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Créer un compte
+                </button>
+                
                 <div id="email">
                     E-mail non vérifiée ?
-                    <button id="emailbutton" class="link" type="button" onclick ="">
+                    <button id="emailbutton" class="link styled" type="button" onclick ="">
                         <span></span>
                         <span></span>
                         <span></span>
@@ -50,7 +55,6 @@
                 </div>
                 <input type="hidden" name="pass" value="1"/>
                 <input type="hidden" name="state" value="-2"/>
-                <!-- TODO : watch button -->
             </form>
         </div>
         <form id="signupform" class="invisible" method="post" action="">
@@ -58,6 +62,9 @@
         </form>
         <form id="emailform" class="invisible" method="post" action="">
             <input type="hidden" name="state" value="0">
+        </form>
+        <form id="killform" class="invisible" method="post" action="">
+            <input type="hidden" name="state" value="">
         </form>
         <!--&SCRIPTS-->
         <script type="text/javascript">

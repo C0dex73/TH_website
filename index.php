@@ -23,7 +23,7 @@ $conn = new mysqli($servername, $dbusername, $password, $db);
 define('CONN', $conn);
 if (CONN->connect_error) { die("Connection failed: " . CONN->connect_error);}
 
-$M_Acode = $Acode = $Cemail = $correct = $pass = $email = $state = $checkpassword = $password = $username = "-1";
+$token = $M_Acode = $Acode = $Cemail = $correct = $pass = $email = $state = $checkpassword = $password = $username = "-1";
 
 
 
@@ -49,6 +49,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $email = secureGet('email');
         $checkpassword = secureGet('checkpassword');
     }
+    $id = secureGet('id');
+    $token = secureGet('token');
 }
 
 switch ($state){
@@ -68,19 +70,26 @@ switch ($state){
         if($M_Acode != ""){
             $Acode = "";
         }
-        break;
+    break;
     case '-2':
         $correct = login($username, $password);
         switch ($correct){
             case '-2' :
                 $correct = "Vérifiez votre E-mail avant de vous connecter";
-                break;
+                $state = '2';
+            break;
+            case '-1';
+                $correct = "";
+                $state = '2';
+            break;
             case '0' :
                 $correct = "Mauvais mot de passe";
-                break;
+                $state = '2';
+            break;
             case '1' :
-                $state = "2";
-                break;
+                $state = "";
+                $token = getToken($username);
+            break;
         }
         break;
     case '0' :
@@ -99,7 +108,7 @@ switch ($state){
                         if($now < $exCode){
                             $sql = 'UPDATE login SET `Vcode`="-1" WHERE `email`="' . $email .'"';
                             $result = $conn->query($sql);
-                            $state="";
+                            $state="2";
                             $Cemail = "OK";
                             $username = "-1";
                         }else{
@@ -114,7 +123,7 @@ switch ($state){
                 $Cemail = "E-mail inconnue";
             }
         }
-        break;
+    break;
     case '-3' :
         $username = "-1";
         if(toUser($email) != ""){
@@ -127,23 +136,31 @@ switch ($state){
                 }
             }
         }
-        break;
+    break;
+    case '4':
+        $sql = 'DELETE FROM `login` WHERE `email`="'. $email . '"';
+        $conn->query($sql);
+        $state = "2";
+    break;
 }
 
 //* Render the page
 switch ($state){
     case '0' : 
-        include("./pages/email.html");
-        break;
+        include("./html/email.html");
+    break;
     case '1' :
-        include("./pages/singup.html");
-        break;
+        include("./html/singup.html");
+    break;
     case '2' :
-        include("./pages/blog.html");
-        break;
+        include("./html/login.html");
+    break;
+    case '3' :
+        include("./php/bubble.php");
+    break;
     default :
-        include("./pages/login.html");
-        break;
+        include("./php/blog.php");
+    break;
 }
 
 //& database connection closed

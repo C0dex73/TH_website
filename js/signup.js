@@ -1,5 +1,5 @@
 $(()=>{
-    $('#loginbutton').on("click", (e) => {
+    $('#killbutton').on("click", (e) => {
         $('#loginform').submit();
     });
 });

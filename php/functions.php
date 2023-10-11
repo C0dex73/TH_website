@@ -153,10 +153,13 @@ function unique_id($l = 8) {
 
 function getToken($_username){
     if(toUser($_username) == ""){
-        return "undefined";
+        return "-1";
     }
     $sql = 'SELECT `token` from login WHERE `username` = "' . $_username . '"';
     $result = CONN->query($sql);
+    if($result->num_rows <= 0){
+        return "-1";
+    }
     return $result->fetch_row()[0];
 }
 

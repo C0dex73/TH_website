@@ -7,18 +7,71 @@ body {
     justify-content: center;
     display: flex;
     font-family: sans-serif;
-    background: linear-gradient(#141e30, #243b55)
 }
 
-iframe {
-    display: block;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    scrollbar-color: transparent transparent;
+body>p {
+    color:#fff;
 }
 
-.framecontainer {
-    width : 382px;
-    overflow: hidden;
-    scrollbar-color: transparent transparent;
+.bubbles{
+    max-width: 500px;
+    position : absolute;
+    top : 15px;
+    justify-content: center;
+}
+
+.bubble {
+    background: rgba(0, 0, 0, .5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+    margin-top:15px;
+    padding : 10px;
+    color: #fff;
+}
+
+.bubble.noform {
+    word-wrap: break-word;
+}
+
+.bubble.static#actions{
+    display : flex;
+    padding : 10px 30px;
+}
+
+div.container>h2{
+    margin-right : 25px;
+}
+
+div.container>img{
+    height : 50px;
+    align-self: center;
+}
+
+.bubble:not(.static):not(#action){
+    transition : transform .2s;
+}
+
+.bubble:not(.static):not(#action):hover{
+    transform: scale(1.3);
+    background-color:rgba(0, 0, 0, .75)
+}
+
+.bubble:not(.static)#action{
+    justify-content: center;
+    display:flex;
+    /*max-width: fit-content;*/
+}
+
+div.container {
+    display : flex;
+    transition : transform .2s;
+}
+
+div.container:hover{
+    transform: scale(1.2);
+}
+
+button.styled#actionbutton {
+    margin-top : 0px;
 }
