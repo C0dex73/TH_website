@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width"/>
 <link rel="stylesheet" href="../css/blog.css?<?php echo $version ?>"/>
 <link rel="stylesheet" href="../css/style.css?<?php echo $version ?>"/>
 </head>
