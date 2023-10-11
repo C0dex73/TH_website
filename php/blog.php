@@ -29,7 +29,7 @@ if($result->num_rows > 0){
         $redirect = '2';
         $bText = "Se connecter";
     }else{
-        $redirect = '3';
+        $redirect = '-4';
         $bText = "Poster un article";
     }
 

@@ -23,7 +23,7 @@ $conn = new mysqli($servername, $dbusername, $password, $db);
 define('CONN', $conn);
 if (CONN->connect_error) { die("Connection failed: " . CONN->connect_error);}
 
-$token = $M_Acode = $Acode = $Cemail = $correct = $pass = $email = $state = $checkpassword = $password = $username = "-1";
+$id = $token = $M_Acode = $Acode = $Cemail = $correct = $pass = $email = $state = $checkpassword = $password = $username = "-1";
 
 
 
@@ -142,6 +142,11 @@ switch ($state){
         $conn->query($sql);
         $state = "2";
     break;
+    case '-4':
+        if(toUser($id) ==""){
+            $state = 400;
+        }
+    break;
 }
 
 //* Render the page
@@ -157,6 +162,9 @@ switch ($state){
     break;
     case '3' :
         include("./php/bubble.php");
+    break;
+    case '400' :
+        include("./html/indev.html");
     break;
     default :
         include("./php/blog.php");
