@@ -23,7 +23,7 @@ $conn = new mysqli($servername, $dbusername, $password, $db);
 define('CONN', $conn);
 if (CONN->connect_error) { die("Connection failed: " . CONN->connect_error);}
 
-$id = $token = $M_Acode = $Acode = $Cemail = $correct = $pass = $email = $state = $checkpassword = $password = $username = "-1";
+$content = $title = $id = $token = $M_Acode = $Acode = $Cemail = $correct = $pass = $email = $state = $checkpassword = $password = $username = "-1";
 
 
 
@@ -49,6 +49,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $email = secureGet('email');
         $checkpassword = secureGet('checkpassword');
     }
+    $content = secureGet('contentvalue');
+    $title = secureGet('title');
     $id = secureGet('id');
     $token = secureGet('token');
 }
@@ -60,9 +62,13 @@ switch ($state){
             $datetime->modify('+1 day');
             $exVcode = $datetime->format('Y-m-d H:i:s');
             $vCode = unique_id($l = 4);
-            $token = unique_id($l = 16);
+            do{
+                $token = unique_id($l = 16);
+                $sql = 'SELECT `token` FROM `users` WHERE `token`="' . $token . '"';
+                $result = CONN->query($sql);
+            }while ($result->num_rows > 0);
             $sql = "INSERT INTO `login` (`username`, `password`, `token`, `email`, `Vcode`, `VcodeEx`) VALUES ('". $username ."', '" . $password . "', '". $token . "', '" . $email . "', '" . $vCode . "', '". $exVcode ."') ";
-            $result = $conn->query($sql);
+            $result = CONN->query($sql);
             sendMail($email, $vCode, $username);
             $state = '0';
         }
@@ -96,18 +102,18 @@ switch ($state){
         if($email != "-1"){
             if(emailVerify($email) == "Cette e-mail est déjà prise"){
                 $sql = 'SELECT `Vcode`, `VcodeEx` FROM login WHERE `email`="'. $email .'"';
-                $result = $conn->query($sql);
+                $result = CONN->query($sql);
                 $row = $result->fetch_row();
                 $code = $row[0];
                 $exCode = new DateTime($row[1]);
                 $now = new DateTime();
                 if($code == "-1"){
-                    $correct = "E-mail déjà vérifiée";
+                    $Cemail = "E-mail déjà vérifiée";
                 }else{
                     if($code == $vCode){
                         if($now < $exCode){
                             $sql = 'UPDATE login SET `Vcode`="-1" WHERE `email`="' . $email .'"';
-                            $result = $conn->query($sql);
+                            $result = CONN->query($sql);
                             $state="2";
                             $Cemail = "OK";
                             $username = "-1";
@@ -128,24 +134,34 @@ switch ($state){
         $username = "-1";
         if(toUser($email) != ""){
             $sql = 'SELECT `Vcode` FROM login WHERE `email`="'. $email .'"';
-            $result = $conn->query($sql);
+            $result = CONN->query($sql);
             if($result->num_rows > 0){
                 if($result->fetch_row()[0] != "-1"){
                     $sql = 'DELETE FROM login WHERE `email`="' . $email . '"';
-                    $result = $conn->query($sql);
+                    $result = CONN->query($sql);
                 }
             }
         }
     break;
     case '4':
         $sql = 'DELETE FROM `login` WHERE `email`="'. $email . '"';
-        $conn->query($sql);
+        CONN->query($sql);
         $state = "2";
     break;
     case '-4':
-        if(toUser($id) ==""){
-            $state = 400;
+        $sql = 'SELECT `username` FROM `login` WHERE `token`="' . $token . '"';
+        $result = CONN->query($sql);
+        if($result->num_rows > 0){
+            $state = "4";
+        }else{
+            $state = "2";
+            $correct = "Vous devez vous connecter pour poster !";
         }
+    break;
+    case '-5':
+        $username = getUsername($token);
+        $sql = "INSERT INTO `blog` (`id`, `author`, `title`, `content`, `files`, `published`) VALUES (NULL, '". $username . "', '". $title . "', '". $content . "', '', current_timestamp()) ";
+        $result = CONN->query($sql);
     break;
 }
 
@@ -163,6 +179,9 @@ switch ($state){
     case '3' :
         include("./php/bubble.php");
     break;
+    case '4' :
+        include("./html/post.html");
+    break;
     case '400' :
         include("./html/indev.html");
     break;
@@ -172,5 +191,5 @@ switch ($state){
 }
 
 //& database connection closed
-$conn->close();
+CONN->close();
 ?>

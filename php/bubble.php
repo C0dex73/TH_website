@@ -41,6 +41,7 @@ echo '<div class="bubbles">
     </div>
     <form method="post" action="" class="invisible" id="killform">
     <input type="hidden" name="state" value=""/>
+    <input type="hidden" id="token" name="token" value="' . $token . '"/>
     </form>';
 
 

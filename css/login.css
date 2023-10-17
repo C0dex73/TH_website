@@ -2,30 +2,3 @@
     color:white;
     margin-top:35px;
 }
-
-.formdiv form button:not(.link)#signupbutton{
-    color : lime;
-}
-
-.formdiv button:not(.link)#signupbutton:hover {
-    background: rgba(0, 255, 0, 0.5);
-    color: rgb(255, 255, 255);
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 255, 0, 0.5),
-        0 0 25px rgba(0, 255, 0, 0.5),
-        0 0 50px rgba(0, 255, 0, 0.5),
-        0 0 100px rgba(0, 255, 0, 0.5);
-}
-
-.formdiv button:not(.link)#signupbutton span:nth-child(1) {
-    background: linear-gradient(90deg, transparent, lime);
-}
-.formdiv button:not(.link)#signupbutton span:nth-child(2) {
-    background: linear-gradient(180deg, transparent, lime);
-}
-.formdiv button:not(.link)#signupbutton span:nth-child(3) {
-    background: linear-gradient(270deg, transparent, lime);
-}
-.formdiv button:not(.link)#signupbutton span:nth-child(4) {
-    background: linear-gradient(360deg, transparent, lime);
-}

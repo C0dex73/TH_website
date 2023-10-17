@@ -13,11 +13,7 @@
 //*script
 
 
-$sql = 'SELECT `username` FROM login WHERE `token`="' . $token . '"';
-$result = CONN->query($sql);
-if($result->num_rows > 0){ $username = $result->fetch_row()[0]; }
-
-
+$username = getUsername($token);
 
 $sql = 'SELECT `title`,`author`,`id` FROM blog ORDER BY `published` DESC';
 $result = CONN->query($sql);
@@ -55,6 +51,7 @@ if($result->num_rows > 0){
                         <h2>'. $row['title'] . '</h2>
                         <input type="hidden" id="id" name="id" value="' . $row['id'] . '"/>
                         <input type="hidden" id="state" name="state" value="3"/>
+                        <input type="hidden" id="token" name="token" value="' . $token . '"/>
                     </form>
                 </div>';
     }

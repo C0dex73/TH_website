@@ -56,7 +56,7 @@ form>*{
     position: relative;
 }
 
-.formdiv .userbox input {
+.formdiv .userbox>input {
     width: 100%;
     padding: 10px 0;
     font-size: 16px;
@@ -78,7 +78,9 @@ form>*{
 }
 
 .formdiv .userbox input:focus~label,
-.formdiv .userbox input:valid~label {
+.formdiv .userbox input:valid~label,
+.formdiv .userbox textarea:focus~label,
+.formdiv .userbox textarea:valid~label {
     top: -20px;
     left: 0;
     color: #03e9f4;
@@ -114,7 +116,7 @@ form button:not(.link).styled{
     text-decoration-line: underline;
 }
 
-button:not(.link).styled:hover {
+button:not(.link):not(.nokill).styled:hover {
     background: rgba(2, 241, 254, 0.5);
     color: #fff;
     border-radius: 5px;
@@ -237,11 +239,11 @@ button.thin {
     padding-right:10px !important;
 }
 
-.formdiv form button:not(.link)#killbutton{
+.formdiv form button:not(.link)#killbutton:not(.nokill){
     color : red;
 }
 
-.formdiv button:not(.link)#killbutton:hover {
+.formdiv button:not(.link)#killbutton:not(.nokill):hover {
     background: rgba(254, 2, 2, 0.5);
     color: rgb(255, 255, 255);
     border-radius: 5px;
@@ -251,15 +253,96 @@ button.thin {
         0 0 100px rgba(254, 2, 2, 0.5);
 }
 
-.formdiv button:not(.link)#killbutton span:nth-child(1) {
+.formdiv button:not(.link)#killbutton:not(.nokill) span:nth-child(1) {
     background: linear-gradient(90deg, transparent, red);
 }
-.formdiv button:not(.link)#killbutton span:nth-child(2) {
+.formdiv button:not(.link)#killbutton:not(.nokill) span:nth-child(2) {
     background: linear-gradient(180deg, transparent, red);
 }
-.formdiv button:not(.link)#killbutton span:nth-child(3) {
+.formdiv button:not(.link)#killbutton:not(.nokill) span:nth-child(3) {
     background: linear-gradient(270deg, transparent, red);
 }
-.formdiv button:not(.link)#killbutton span:nth-child(4) {
+.formdiv button:not(.link)#killbutton:not(.nokill) span:nth-child(4) {
     background: linear-gradient(360deg, transparent, red);
+}
+
+
+.formdiv form button:not(.link).green{
+    color : lime;
+}
+
+.formdiv button:not(.link).green:hover{
+    background: rgba(2, 254, 2, 0.5);
+    color: rgb(255, 255, 255);
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(2, 254, 2, 0.5),
+        0 0 25px rgba(2, 254, 2, 0.5),
+        0 0 50px rgba(2, 254, 2, 0.5),
+        0 0 100px rgba(2, 254, 2, 0.5);
+}
+
+.formdiv button:not(.link).green span:nth-child(1) {
+    background: linear-gradient(90deg, transparent, lime);
+}
+.formdiv button:not(.link).green span:nth-child(2) {
+    background: linear-gradient(180deg, transparent, lime);
+}
+.formdiv button:not(.link).green span:nth-child(3) {
+    background: linear-gradient(270deg, transparent, lime);
+}
+.formdiv button:not(.link).green span:nth-child(4) {
+    background: linear-gradient(360deg, transparent, lime);
+}
+
+input[type="file"] {
+    display : none;
+}
+
+.bubbles{
+    max-width: 500px;
+    position : absolute;
+    top : 15px;
+    justify-content: center;
+}
+
+.bubble {
+    background: rgba(0, 0, 0, .5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+    margin-top:15px;
+    padding : 10px;
+    color: #fff;
+}
+
+.bubble.noform {
+    word-wrap: break-word;
+}
+
+.bubble.static#actions{
+    display : flex;
+    padding : 10px 30px;
+}
+
+div.container>h2{
+    margin-right : 25px;
+}
+
+div.container>img{
+    height : 50px;
+    align-self: center;
+}
+
+.bubble:not(.static):not(#action){
+    transition : transform .2s;
+}
+
+.bubble:not(.static):not(#action):hover{
+    transform: scale(1.3);
+    background-color:rgba(0, 0, 0, .75)
+}
+
+.bubble:not(.static)#action{
+    justify-content: center;
+    display:flex;
 }

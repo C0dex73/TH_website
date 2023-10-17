@@ -14,6 +14,13 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 
 
+function getUsername($token) {
+    $sql = 'SELECT `username` FROM login WHERE `token`="' . $token . '"';
+    $result = CONN->query($sql);
+    if($result->num_rows > 0){ return $result->fetch_row()[0]; }
+    return '-1';
+}
+
 function secureGet($key, $method = 'post'){
     switch($method){
         case 'post' :

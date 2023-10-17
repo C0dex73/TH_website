@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width"/>
+        <link rel="stylesheet" href="../css/style.css?<?php echo $version ?>"/>
+        <link rel="stylesheet" href="../css/post.css?<?php echo $version ?>"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+        <title>Poster un article</title>
+    </head>
+    <body>
+        <div class="formdiv">
+            <form id="killform" method="post" action="">
+                <input type="hidden" name="state" value=""/>
+                <input type="hidden" name="token" value="<?php echo $token; ?>"/>
+                <button id="killbutton" onclick="" type="button" class="styled nokill">
+                    <img src="../medias/left_arrow.png" alt="Left Arrow" /><h3>Retour</h3>
+                </button>
+            </form>
+            <form id="mainform" method="post" action="">
+                <input type="hidden" name="state" value="-5"/>
+                <input type="hidden" name="token" value="<?php echo $token; ?>"/>
+                <div class="userbox">
+                    <input type="text" name="title"/>
+                    <label>Titre : </label>
+                </div>
+
+                <div class="userbox">
+                    <div id="modifiers">
+                        <button type="button" id="italic" data-tag="i">
+                            <i class="fa-solid fa-italic"></i>
+                        </button>
+                        <button type="button" id="bold" data-tag="b">
+                            <i class="fa-solid fa-bold"></i>
+                        </button>
+                        <button type="button" id="underline" data-tag="u">
+                            <i class="fa-solid fa-underline"></i>
+                        </button>
+                        <button type="button" id="maj" data-tag="m">
+                            Aa
+                        </button>
+                        <button type="button" id="createLink" data-tag="a">
+                            <i class="fa-solid fa-link"></i>
+                        </button>
+                        <input type="color" id="color"/>
+                    </div>
+                    <textarea id="content" placeholder=""></textarea>
+                    <input type="hidden" id="contentvalue" name="contentvalue" value=""/>
+                    <label>Contenu : </label>
+                </div>
+                <button id="renderbutton" class="styled" type="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Prévisualiser
+                </button>
+                <div class="userbox bubble static" id="render">
+                    
+                </div>
+                <button type="button" class="styled green" id="uploadfiles" onclick="">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Lier un ou des fichiers
+                </button>
+                <input type="file" id="file" name="file[]" multiple/>
+                <button id="submitbutton" onclick="" type="button" class="styled">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Poster
+                </button>
+            </form>
+        </div>
+        <!--& SCRIPTS &-->
+        <script src="https://code.jquery.com/jquery-3.6.0.js?<?php echo $version ?>"></script>
+        <script type="text/javascript" src="../js/main.js?<?php echo $version ?>"></script>
+        <script type="text/javascript" src="../js/post.js?<?php echo $version ?>"></script>
+    </body>
+</html>

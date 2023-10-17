@@ -1,0 +1,94 @@
+img{
+    height : 50px;
+    align-self: center;
+}
+
+button#killbutton {
+    display : flex;
+    transition : transform .2s;
+    margin-bottom : 30px;
+}
+
+button#killbutton:hover {
+    transform: scale(1.2);
+}
+
+button#killbutton>h3{
+    margin : 13px 25px 0px 0px;
+    color:white;
+}
+
+.userbox {
+    margin-bottom : 15px;
+    margin-top:5px;
+}
+
+textarea {
+    width: 93%;
+    height: 200px;
+    padding: 10px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    resize: vertical;
+    margin-top : 15px;
+}
+
+div#modifiers{
+    margin-top:15px;
+    display : flex;
+    justify-content: center;
+}
+
+div#modifiers>*{
+    margin-right:2px;
+}
+
+#modifiers>input[type=number] {
+    outline: none;
+    border: none;
+    width: 40px;
+    color: #131c35;
+    font-size: 18px;
+    border-radius : 3px;
+}
+
+button.active {
+    background-color: #73b1e333;
+    color: #5271ff;
+}
+
+button:hover {
+    background-color: #40576d1a;
+}
+
+button {
+    border: none;
+    color: white;
+    font-size: 20px;
+    font-weight: 300;
+    background-color: transparent;
+    padding: 10px 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    user-select: none;
+}
+
+#render {
+    min-height : 10px;
+    
+    color : white;
+}
+
+#render>span.p{
+    display:inline;
+}
+
+.formdiv {
+    top:55%;
+}
+
+body {
+    padding-bottom : 20px;
+    padding-top:  0px;
+}
