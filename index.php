@@ -160,7 +160,7 @@ switch ($state){
     break;
     case '-5':
         $username = getUsername($token);
-        $sql = "INSERT INTO `blog` (`id`, `author`, `title`, `content`, `files`, `published`) VALUES (NULL, '". $username . "', '". $title . "', '". $content . "', '', current_timestamp()) ";
+        $sql = "INSERT INTO `blog` (`id`, `author`, `title`, `content`, `files`, `published`) VALUES (NULL, \"". $username . "\", \"". $title . "\", \"". $content . "\", \"\", current_timestamp()) ";
         $result = CONN->query($sql);
     break;
 }
