@@ -9,16 +9,13 @@ $(()=>{
                 txt += str[i];
             }
         }
-        alert(txt);
         return txt;
     }
 
     $('#submitbutton').on("click", (e) => {
         try{
             $('#contentvalue').val(secure($('#content').val()));
-        }catch(e) {
-            alert(e.message)
-        }
+        }catch(e) {}
 
         $('#mainform').submit();
     });
