@@ -324,6 +324,10 @@ input[type="file"] {
     padding : 10px 30px;
 }
 
+.bubble#article img {
+    width:350px;
+}
+
 div.container>h2{
     margin-right : 25px;
 }
