@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width"/>
+<link rel="icon" href="../medias/icon.png"/>
 <link rel="stylesheet" href="../css/style.css?'. $version . '"/>
 <link rel="stylesheet" href="../css/blog.css?'. $version . '"/>
 <title>Terminale H Blog</title>
