@@ -64,7 +64,7 @@ switch ($state){
             $vCode = unique_id($l = 4);
             do{
                 $token = unique_id($l = 16);
-                $sql = 'SELECT `token` FROM `users` WHERE `token`="' . $token . '"';
+                $sql = 'SELECT `token` FROM `login` WHERE `token`="' . $token . '"';
                 $result = CONN->query($sql);
             }while ($result->num_rows > 0);
             $sql = "INSERT INTO `login` (`username`, `password`, `token`, `email`, `Vcode`, `VcodeEx`) VALUES ('". $username ."', '" . $password . "', '". $token . "', '" . $email . "', '" . $vCode . "', '". $exVcode ."') ";
