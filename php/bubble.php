@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width"/>
+<link rel="icon" href="../medias/icon.png"/>
 <link rel="stylesheet" href="../css/style.css?'. $version . '"/>
 <link rel="stylesheet" href="../css/blog.css?'. $version . '"/>
 <title>Terminale H Blog</title>
@@ -30,7 +31,7 @@ echo '<div class="bubbles">
                 <img src="../medias/left_arrow.png" alt="Left Arrow" /><h2>Retour</h2>
             </div>
         </div>
-        <div class="bubble static noform breakword">
+        <div class="bubble static noform breakword" id="article">
             <h1>' . $row['title'] . '</h1>
             <p><i>Publié par ' . $row['author'] . ' le ' .  $date . ' à ' . $time . '</i>
             <br/>

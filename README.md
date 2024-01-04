@@ -10,5 +10,5 @@ TH website for [JDA High School](https://www.lyceejeannedarc.com/) <br/>
 Hosted at [jdath.fr](https://jdath.fr)
 
 <b>Credits :</b><br/>
-PHP / HTML / JS by [Codex](https://github.com/C0dex73)<br/>
+PHP / HTML / JS / CSS by [Codex](https://github.com/C0dex73)<br/>
 CSS by [Ryzox](https://github.com/RyzoxDev)
