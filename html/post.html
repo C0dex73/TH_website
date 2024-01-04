@@ -9,7 +9,7 @@
         <title>Poster un article</title>
     </head>
     <body>
-        <div class="formdiv">
+        <div class="formdiv" id="postdiv">
             <form id="killform" method="post" action="">
                 <input type="hidden" name="state" value=""/>
                 <input type="hidden" name="token" value="<?php echo $token; ?>"/>
@@ -17,7 +17,7 @@
                     <img src="../medias/left_arrow.png" alt="Left Arrow" /><h3>Retour</h3>
                 </button>
             </form>
-            <form id="mainform" method="post" action="">
+            <form enctype="multipart/form-data" id="mainform" method="post" action="">
                 <input type="hidden" name="state" value="-5"/>
                 <input type="hidden" name="token" value="<?php echo $token; ?>"/>
                 <div class="userbox">
@@ -55,17 +55,11 @@
                     <span></span>
                     Prévisualiser
                 </button>
-                <div class="userbox bubble static" id="render">
-                    
-                </div>
-                <button type="button" class="styled green" id="uploadfiles" onclick="">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    Lier un ou des fichiers
-                </button>
-                <input type="file" id="file" name="file[]" multiple/>
+                <div class="userbox bubble static breakword" id="render"></div>
+                <label id="files">
+                    <p>Lier des fichiers</p>
+                    <input type="file" id="file" name="upload[]" multiple/>
+                </label>
                 <button id="submitbutton" onclick="" type="button" class="styled">
                     <span></span>
                     <span></span>

@@ -44,7 +44,6 @@ function toUser($post){
     return $post;
 }
 
-//TODO : handle -1 username
 function usernameVerify($username, $signup){
     if($username == ""){
         return "Nom d'utilisateur invalide";

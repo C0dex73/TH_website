@@ -76,7 +76,6 @@ button {
 
 #render {
     min-height : 10px;
-    
     color : white;
 }
 
@@ -91,4 +90,43 @@ button {
 body {
     padding-bottom : 20px;
     padding-top:  0px;
+    display: grid;
+}
+
+html {
+    display: grid;
+}
+
+label#files {
+    cursor: pointer;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin: 5px;
+    background: #dddddd;
+    display: inline-block;
+    align-self: center;
+    justify-self: center;
+}
+
+label#files p {
+    margin: 0px;
+}
+
+label#files:hover {
+    background: #5cbd95;
+}
+label#files:active {
+    background: #9fa1a0;
+  }
+label#files:invalid + span {
+    color: #000000;
+}
+label#files:valid + span {
+    color: #ffffff;
+}
+
+div.formdiv#postdiv {
+    align-self: center;
+    justify-self: center;
 }

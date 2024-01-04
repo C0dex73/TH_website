@@ -159,8 +159,29 @@ switch ($state){
         }
     break;
     case '-5':
+        $filesPath = array();
+
+        if(!empty($_FILES['upload'])){
+            $files = array_filter($_FILES['upload']['name']);
+            $total = count($_FILES['upload']['name']);
+            for( $i=0 ; $i < $total ; $i++ ) {
+                $tmpFilePath = $_FILES['upload']['tmp_name'][$i];
+                if ($tmpFilePath != ""){
+                    $newFilePath = './medias/uploaded/' . $_FILES['upload']['name'][$i];
+                    while(file_exists($newFilePath)){
+                        $dotPos = strlen($newFilePath) - strlen(pathinfo($newFilePath, PATHINFO_EXTENSION)) - 1;
+                        $newFilePath = substr($newFilePath,0, $dotPos) . '_duplicate.' . pathinfo($newFilePath, PATHINFO_EXTENSION);
+                    }
+                    array_push($filesPath, $newFilePath);
+                    move_uploaded_file($tmpFilePath, $newFilePath);
+                    $content = $content . '<img src="' . $newFilePath . '" style="width:100%;" alt="Fichier nommé '. $_FILES['upload']['name'][$i] . '"/>';
+                }
+            }
+        }
+        
+
         $username = getUsername($token);
-        $sql = 'INSERT INTO `blog` (`id`, `author`, `title`, `content`, `files`, `published`) VALUES (NULL, \''. $username . '\', \''. $title . '\', \''. $content . '\', \'\', current_timestamp()) ';
+        $sql = 'INSERT INTO `blog` (`id`, `author`, `title`, `content`, `files`, `published`) VALUES (NULL, \''. $username . '\', \''. $title . '\', \''. $content . '\', \'['. implode(",", $filesPath) .']\', current_timestamp()) ';
         $result = CONN->query($sql);
     break;
 }

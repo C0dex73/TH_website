@@ -111,14 +111,36 @@ $(() => {
         txtAera.value = bred(modify('c', e.target.value));
     });
 
-    $('#renderbutton').on('click', (e) => {
+    function Render() {
         txtAera.value = bred(txtAera.value);
         $('#render').html(txtAera.value);
+        multiImgPreview($('#file'), '#render');
+    }
+
+    $('#renderbutton').on('click', (e) => {
+        Render();
     });
 
-    $('#uploadfiles').on('click', (e) => {
-        alert("En cours de développement...")
-        //$('#file').click();
-    });
+    function multiImgPreview(input, imgPreviewPlaceholder){
 
+        if (input[0].files) {
+            var filesAmount = input[0].files.length;
+
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+
+                reader.onload = function(event) {
+                    $($.parseHTML('<img style="width:100%;height:auto">')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
+                }
+
+                reader.readAsDataURL(input[0].files[i]);
+            }
+        }
+
+    };
+
+
+    $('#file').on('change', function() {
+        Render();
+    });
 });

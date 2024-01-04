@@ -30,7 +30,7 @@ echo '<div class="bubbles">
                 <img src="../medias/left_arrow.png" alt="Left Arrow" /><h2>Retour</h2>
             </div>
         </div>
-        <div class="bubble static noform">
+        <div class="bubble static noform breakword">
             <h1>' . $row['title'] . '</h1>
             <p><i>Publié par ' . $row['author'] . ' le ' .  $date . ' à ' . $time . '</i>
             <br/>
