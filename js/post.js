@@ -24,78 +24,59 @@ $(() => {
         return str;
     };
 
-    let deleteDoubles = (tag, text) => {
-        let Length = tag.length*2+5;
-        if(text.length >= Length){
-            for(let i = 0; i <= text.length-Length;) {
-                if(text.substring(i, i+Length) == '<'+tag+'></'+tag+'>'){
-                    text = text.substring(0, i) + text.substring(i+Length, text.length+1);
-                }else{
-                    i++;
-                }
-            }
-        }
-        return text;
-    };
+    let removeDoubles = (str) => {
+        let italic = false;
+        let bold = false;
+        let underlined = false;
+        let link = false;
 
-    let reverse = (text, str1, str2) => {
-        let txt = "";
-        let Length = Math.max(str1.length, str2.length)
-        let i = 0;
-        while (i <= text.length-Length){
-            if(text.substring(i, i+str1.length) == str1){
-                txt += str2;
-                i += str1.length;
-            }else if(text.substring(i, i+str2.length) == str2){
-                txt += str1;
-                i += str2.length;
-            }else{
-                txt += text[i];
-                i++;
-            }
-        }
-        txt += text.substring(i, text.length);
-        return txt;
-    };
+        //TODO : check for doubles
+    }
 
-    let modify = (command, args=null) =>{
-        let text = "";
+    let parseToHTML = (str) => {
+
+        //TODO : parse to HTML
+
+        str = bred(str);
+    }
+
+    let modify = (...args) => {
         let selected = txtAera.value.substring(txtAera.selectionStart, txtAera.selectionEnd);
-        if(selected != ""){
-            let before = txtAera.value.substring(0, txtAera.selectionStart);
-            let after = txtAera.value.substring(txtAera.selectionEnd);
-            if(command == 'i' || command == 'b' || command == 'u') {
-                selected = reverse(selected, '<' + command + '>', '</' + command + '>');
-                if(count(before, '<'+command+'>') > count(before, '</'+command+'>')){
-                    text = before + '</'+command+'>' + selected + '<'+command+'>' + after;
-                }else{
-                    text = before + '<'+command+'>' + selected + '</'+command+'>' + after;
-                }
-                text = deleteDoubles('i', text);
-            }else if(command == 'm'){
-                text = before;
-                for(let i = 0; i < selected.length ; i++) {
-                    if(selected[i] === selected[i].toLowerCase() && selected[i].toUpperCase() !== selected[i]){
-                        text += selected[i].toUpperCase();
-                    }else if(selected[i] !== selected[i].toLowerCase() && selected[i].toUpperCase() === selected[i]){
-                        text += selected[i].toLowerCase();
-                    }else{
-                        text += selected[i];
-                    }
-                }
-                text += after;
-            }else if(command == 'a'){
-                let url = window.prompt("Entrez une url.");
-                text = before + '<a target="_blank" href="' + url + '">' + selected + '</a>' + after;
-            }else if(command == 'c' && args != null){
-                selected = selected.replace(/<span.*class=\"p\">/, '').replace(/<\/span>/, '');
-                text = before + '<span style="color: ' + args + '" class="p">' + selected + '</span>' + after;
-            }
-            return text;
-        }else{
-            return txtAera.value;
+
+        if (selected == ""){
+            return txtAera.value
         }
-    };
+
+        let txt = "";
+
+        let before = txtAera.value.substring(0, txtAera.selectionStart);
+        let after = txtAera.value.substring(txtAera.selectionEnd);
+        let toAdd = "";
+
+        switch (args[0]) {
+            case 'b' :
+                toAdd = "**";
+                break;
+            case 'i' :
+                toAdd = "*";
+                break;
+            case 'u' :
+                toAdd = "__"
+                break;
+            case link :
+                //TODO : transform to [txt](url)
+                break;
+            case 'c' :
+                //TODO : transform to [txt](color)
+                break;
+        }
+
+        if(toAdd == ""){
+            return txt;
+        }
+
+        return removeDoubles(before + toAdd + selected + toAdd + after);
+    }
 
     $('#modifiers>button').each((id, trigger) => {
         $(trigger).on('click', (e) => {
@@ -103,16 +84,16 @@ $(() => {
             if(Trigger.localName != "button"){
                 Trigger = Trigger.closest("button");
             }
-            txtAera.value = bred(modify(Trigger.dataset.tag));
+            txtAera.value = modify(Trigger.dataset.tag);
         });
     });
 
     $('input#color').on('change', (e) => {
-        txtAera.value = bred(modify('c', e.target.value));
+        txtAera.value = modify('c', e.target.value);
     });
 
     function Render() {
-        txtAera.value = bred(txtAera.value);
+        txtAera.value = parseToHTML(txtAera.value);
         $('#render').html(txtAera.value);
         multiImgPreview($('#file'), '#render');
     }
@@ -140,7 +121,7 @@ $(() => {
     };
 
 
-    $('#file').on('change', function() {
+    $('#file').on('change', () => {
         Render();
     });
 });
