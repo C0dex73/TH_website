@@ -6,6 +6,14 @@ $(() => {
         return fStr.split(str).length-1;
     };
 
+    let endsWith = (str, toCheck) => {
+        return str.substring(str.length-toCheck.length, str.length) == toCheck
+    }
+
+    let startsWith = (str, toCheck) => {
+        return str.substring(0, toCheck.length) == toCheck
+    }
+
     let bred = (str) => {
         if(str.length < 6){
             return str.replace(/\n/g, "<br/>\n");
@@ -23,15 +31,6 @@ $(() => {
         }
         return str;
     };
-
-    let removeDoubles = (str) => {
-        let italic = false;
-        let bold = false;
-        let underlined = false;
-        let link = false;
-
-        //TODO : check for doubles
-    }
 
     let parseToHTML = (str) => {
 
@@ -71,11 +70,26 @@ $(() => {
                 break;
         }
 
+        //if link or color
         if(toAdd == ""){
             return txt;
         }
 
-        return removeDoubles(before + toAdd + selected + toAdd + after);
+        if(endsWith(selected, toAdd)){
+            selected = selected.substring(0, selected.length-toAdd.length);
+            after = toAdd + after;
+        }
+
+        if(startsWith(selected, toAdd)){
+            selected = selected.substring(toAdd.length, selected.length);
+            before += "*";
+        }
+
+        txt += endsWith(before, toAdd) ? before.substring(0, before.length-toAdd.length) : (before + toAdd);
+
+        txt += selected + (startsWith(after, toAdd) ? after.substring(toAdd.length, after.length) : (toAdd + after));
+
+        return txt;
     }
 
     $('#modifiers>button').each((id, trigger) => {
