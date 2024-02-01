@@ -114,6 +114,7 @@ $(() => {
     function Render() {
         txtAera.value = bred(txtAera.value);
         $('#render').html(txtAera.value);
+        $('contentvalue').html(txtAera.value);
         multiImgPreview($('#file'), '#render');
     }
 
