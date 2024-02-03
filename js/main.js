@@ -14,7 +14,8 @@ $(()=>{
 
     $('#submitbutton').on("click", (e) => {
         try{
-            $('#contentvalue').val(secure($('#content').val()));
+            //$('#contentvalue').val(secure($('#content').val())); --> BUGGED
+            alert("Poster des articles est temporairement désactivé.\r\nVeuillez réésayer plus tard !");
         }catch(e) {}
 
         $('#mainform').submit();
