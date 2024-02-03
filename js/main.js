@@ -14,11 +14,11 @@ $(()=>{
 
     $('#submitbutton').on("click", (e) => {
         try{
-            //$('#contentvalue').val(secure($('#content').val())); --> BUGGED
+            $('#contentvalue').val(secure($('#content').val()));
             alert("Poster des articles est temporairement désactivé.\r\nVeuillez réésayer plus tard !");
-        }catch(e) {}
-
-        $('#mainform').submit();
+        }catch(e) {
+            $('#mainform').submit();
+        }
     });
 
     $('#killbutton').on("click", (e) => {
