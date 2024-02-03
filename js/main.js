@@ -3,10 +3,11 @@ $(()=>{
     let secure = (str) => {
         txt = "";
         for (let i = 0 ; i < str.length ; i++) {
-            if(str[i] == '\''){
-                txt += '\\\'';
-            }else{
-                txt += str[i];
+            switch (str[i]) {
+                case '\'' : txt += '\\\''; break;
+                case '`' : txt += '\\`'; break;
+                case '"' : txt += '\\"'; break;
+                default : txt += str[i];
             }
         }
         return txt;
