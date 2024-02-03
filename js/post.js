@@ -14,37 +14,51 @@ $(() => {
         return str.substring(0, toCheck.length) == toCheck
     }
 
-    let bred = (str) => {
-        if(str.length < 6){
-            return str.replace(/\n/g, "<br/>\n");
-        }else{
-            let i = 6;
-            let l = str.length;
-            while(i <= l-1) {
-                if(str[i] == '\n' && str.substring(i-5, i) != '<br/>'){
-                    str = str.substring(0, i) + '<br/>' + str.substring(i, str.length);
-                    l=str.length;
-                    i += 5;
-                }
-                i++;
+    let secure = (str) => {
+        txt = "";
+        for (let i = 0 ; i < str.length ; i++) {
+            switch (str[i]) {
+                case '\'' : txt += '\\\''; break;
+                case '`' : txt += '\\`'; break;
+                case '"' : txt += '\\"'; break;
+                default : txt += str[i];
             }
+        }
+        return txt;
+    }
+
+    let bred = (str) => {
+        if(str.length < 6){ return str.replace(/\n/g, "<br/>\n"); }
+
+        let i = 6;
+        let l = str.length;
+        while(i <= l-1) {
+            if(str[i] == '\n' && str.substring(i-5, i) != '<br/>'){
+                str = str.substring(0, i) + '<br/>' + str.substring(i, str.length);
+                l=str.length;
+                i += 5;
+            }
+            i++;
         }
         return str;
     };
+
+    let switchCase = (char) => {
+        try{
+            if (char == char.toUpperCase()) { return char.toLowerCase(); }
+            return char.toUpperCase();
+        }catch(e){ return char; }
+    }
 
     let parseToHTML = (str) => {
 
         //TODO : parse to HTML
 
-        str = bred(str);
+        str = secure(bred(str));
     }
 
     let modify = (...args) => {
         let selected = txtAera.value.substring(txtAera.selectionStart, txtAera.selectionEnd);
-
-        if (selected == ""){
-            return txtAera.value
-        }
 
         let txt = "";
 
@@ -53,41 +67,44 @@ $(() => {
         let toAdd = "";
 
         switch (args[0]) {
-            case 'b' :
-                toAdd = "**";
+            case 'b' : toAdd = "**"; break;
+            case 'i' : toAdd = "*"; break;
+            case 'u' : toAdd = "__"; break;
+            case 'm' :
+                let modifiedSelection = [];
+                [...selected].forEach((char) => modifiedSelection.push(switchCase(char)));
+                txt = before + modifiedSelection.join("") + after;
                 break;
-            case 'i' :
-                toAdd = "*";
-                break;
-            case 'u' :
-                toAdd = "__"
-                break;
-            case link :
-                //TODO : transform to [txt](url)
+            case 'link' :
+                let url = window.prompt("Entrez une url.");
+                toAdd = `[texte](${url})`;
+                txt = `${before}[${selected}](${url})${after}`;
                 break;
             case 'c' :
-                //TODO : transform to [txt](color)
+                toAdd = `[texte](${args[1]})`;
+                txt = `${before}[${selected}](${args[1]})${after}`;
                 break;
+            default :
+                return txtAerate.value;
         }
 
-        //if link or color
-        if(toAdd == ""){
-            return txt;
-        }
+        if (selected == ""){ return txtAera.value + toAdd; }
 
-        if(endsWith(selected, toAdd)){
+        if (txt != "") { return txt; }
+
+        if(endsWith(selected, toAdd) && !endsWith(selected, '\\' + toAdd)){
             selected = selected.substring(0, selected.length-toAdd.length);
             after = toAdd + after;
         }
 
-        if(startsWith(selected, toAdd)){
+        if(startsWith(selected, toAdd) && !startsWith(selected, '\\' + toAdd)){
             selected = selected.substring(toAdd.length, selected.length);
-            before += "*";
+            before += toAdd;
         }
 
-        txt += endsWith(before, toAdd) ? before.substring(0, before.length-toAdd.length) : (before + toAdd);
+        txt += (endsWith(before, toAdd) && !endsWith(before, '\\' + toAdd))  ? before.substring(0, before.length-toAdd.length) : (before + toAdd);
 
-        txt += selected + (startsWith(after, toAdd) ? after.substring(toAdd.length, after.length) : (toAdd + after));
+        txt += selected + ((startsWith(after, toAdd) && !startsWith(after, '\\' + toAdd)) ? after.substring(toAdd.length, after.length) : (toAdd + after));
 
         return txt;
     }
@@ -95,9 +112,7 @@ $(() => {
     $('#modifiers>button').each((id, trigger) => {
         $(trigger).on('click', (e) => {
             let Trigger = e.target;
-            if(Trigger.localName != "button"){
-                Trigger = Trigger.closest("button");
-            }
+            if(Trigger.localName != "button"){ Trigger = Trigger.closest("button"); }
             txtAera.value = modify(Trigger.dataset.tag);
         });
     });
@@ -106,9 +121,8 @@ $(() => {
         txtAera.value = modify('c', e.target.value);
     });
 
-    function Render() {
-        txtAera.value = parseToHTML(txtAera.value);
-        $('#render').html(txtAera.value);
+    var Render = () => {
+        $('#render').html(parseToHTML(txtAera.value));
         multiImgPreview($('#file'), '#render');
     }
 

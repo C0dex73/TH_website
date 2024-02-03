@@ -26,7 +26,7 @@
                     <label>Titre : </label>
                 </div>
 
-                <div class="userbox">
+                <div class="userbox" id="contentUserbox">
                     <div id="modifiers">
                         <button type="button" id="italic" data-tag="i">
                             <i class="fa-solid fa-italic"></i>
@@ -40,14 +40,14 @@
                         <button type="button" id="maj" data-tag="m">
                             Aa
                         </button>
-                        <button type="button" id="createLink" data-tag="a">
+                        <button type="button" id="createLink" data-tag="link">
                             <i class="fa-solid fa-link"></i>
                         </button>
                         <input type="color" id="color"/>
                     </div>
                     <textarea id="content" placeholder=""></textarea>
                     <input type="hidden" id="contentvalue" name="contentvalue" value=""/>
-                    <label>Contenu : </label>
+                    <label id="contentLabel">Contenu : </label>
                 </div>
                 <button id="renderbutton" class="styled" type="button">
                     <span></span>
