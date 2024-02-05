@@ -7,24 +7,13 @@ $(() => {
     };
 
     let endsWith = (str, toCheck) => {
+        if(toCheck == "*" && endsWith(str, "**")) { return false;}
         return str.substring(str.length-toCheck.length, str.length) == toCheck
     }
 
     let startsWith = (str, toCheck) => {
+        if(toCheck == "*" && startsWith(str, "**")) { return false;}
         return str.substring(0, toCheck.length) == toCheck
-    }
-
-    let secure = (str) => {
-        txt = "";
-        for (let i = 0 ; i < str.length ; i++) {
-            switch (str[i]) {
-                case '\'' : txt += '\\\''; break;
-                case '`' : txt += '\\`'; break;
-                case '"' : txt += '\\"'; break;
-                default : txt += str[i];
-            }
-        }
-        return txt;
     }
 
     let bred = (str) => {
@@ -52,9 +41,73 @@ $(() => {
 
     let parseToHTML = (str) => {
 
-        //TODO : parse to HTML
+        //TODO : finish parsing to HTML '()[]' modifiers
 
-        str = secure(bred(str));
+
+        let txt = "";
+        let italic = false;
+        let bold = false;
+        let underline = false;
+
+        for (let i = 0; i < str.length; i++) {
+            if (str.substring(i, i + 2) == "**"){
+                if(bold){
+                    txt += "</b>";
+                }else{
+                    txt += "<b>";
+                }
+                bold = !bold;
+                i++;
+            }else if (str.substring(i, i + 1) == "*"){
+                if(italic){
+                    txt += "</i>";
+                }else{
+                    txt += "<i>";
+                }
+                italic = !italic;
+            }else if (str.substring(i, i + 2) == "__"){
+                if(underline){
+                    txt += "</u>";
+                }else{
+                    txt += "<u>";
+                }
+                underline = !underline;
+                i++;
+            }else if(str.substring(i, i + 2) == "](" && i+9 < str.length){
+                if(str[i+9] == ")"){
+                    let Llimit = -1;
+                    let Rlimit = i;
+                    for(let j = i-1; j >= 0; j--){
+                        try{
+                            if (str[j] == "[" && str[j-1] != "\\"){
+                                Llimit = j+1;
+                                break;
+                            }
+                        }catch(e){
+                            if(str[j] == "["){
+                                Llimit = j+1;
+                                break;
+                            }
+                        }
+                    }
+                    if(Llimit == -1) {
+                        txt += str[i];
+                    }else{
+                        let colored = str.substring(Llimit, Rlimit);
+                        let color = str.substring(i+2, i+9);
+                        txt = `${txt.substring(0, Llimit-1)}<span style="color:${color};">${colored}</span>`;
+                        i += 9;
+                    }
+                }else{
+                    txt += str[i];
+                }
+            }else{
+                txt += str[i];
+            }
+        }
+
+
+        return bred(txt);
     }
 
     let modify = (...args) => {
@@ -121,11 +174,6 @@ $(() => {
         txtAera.value = modify('c', e.target.value);
     });
 
-    var Render = () => {
-        $('#render').html(parseToHTML(txtAera.value));
-        multiImgPreview($('#file'), '#render');
-    }
-
     $('#renderbutton').on('click', (e) => {
         Render();
     });
@@ -148,6 +196,11 @@ $(() => {
 
     };
 
+    let Render = () => {
+        $('#render').html(parseToHTML(txtAera.value));
+        multiImgPreview($('#file'), '#render');
+    }
+    window.render = Render;
 
     $('#file').on('change', () => {
         Render();

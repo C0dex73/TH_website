@@ -182,6 +182,7 @@ switch ($state){
         
 
         $username = getUsername($token);
+        if ($title == ""){ $title = "Sans Titre"; }
         $sql = 'INSERT INTO `blog` (`id`, `author`, `title`, `content`, `files`, `published`) VALUES (NULL, \''. $username . '\', \''. $title . '\', \''. $content . '\', \'['. implode(",", $filesPath) .']\', current_timestamp()) ';
         $result = CONN->query($sql);
     break;
