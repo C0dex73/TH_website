@@ -24,7 +24,7 @@ button#killbutton>h3{
 }
 
 textarea {
-    width: 93%;
+    width: 93.75%;
     height: 200px;
     padding: 10px;
     border-radius: 3px;
@@ -74,13 +74,17 @@ button {
     user-select: none;
 }
 
-#render {
+#renderDiv {
     min-height : 10px;
     color : white;
 }
 
-#render>span.p{
+#renderDiv>span.p{
     display:inline;
+}
+
+#renderDiv>p {
+    margin : 0px;
 }
 
 .formdiv {
@@ -129,4 +133,18 @@ label#files:valid + span {
 div.formdiv#postdiv {
     align-self: center;
     justify-self: center;
+    padding : 22px;
+}
+
+#contentLabel {
+    top : -40px;
+}
+
+#contentUserbox {
+    border : 3px transparent;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    margin-top : 50px;
+    background: rgba(0, 0, 0, .5);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
 }

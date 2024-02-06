@@ -161,7 +161,7 @@ switch ($state){
     case '-5':
         $filesPath = array();
 
-        if(!empty($_FILES['upload'])){
+        if($_FILES['upload']['name'][0] != ""){
             $files = array_filter($_FILES['upload']['name']);
             $total = count($_FILES['upload']['name']);
             for( $i=0 ; $i < $total ; $i++ ) {
@@ -182,6 +182,7 @@ switch ($state){
         
 
         $username = getUsername($token);
+        if ($title == ""){ $title = "Sans Titre"; }
         $sql = 'INSERT INTO `blog` (`id`, `author`, `title`, `content`, `files`, `published`) VALUES (NULL, \''. $username . '\', \''. $title . '\', \''. $content . '\', \'['. implode(",", $filesPath) .']\', current_timestamp()) ';
         $result = CONN->query($sql);
     break;
@@ -214,4 +215,3 @@ switch ($state){
 
 //& database connection closed
 CONN->close();
-?>

@@ -3,10 +3,11 @@ $(()=>{
     let secure = (str) => {
         txt = "";
         for (let i = 0 ; i < str.length ; i++) {
-            if(str[i] == '\''){
-                txt += '\\\'';
-            }else{
-                txt += str[i];
+            switch (str[i]) {
+                case '\'' : txt += '\\\''; break;
+                case '`' : txt += '\\`'; break;
+                case '"' : txt += '\\"'; break;
+                default : txt += str[i];
             }
         }
         return txt;
@@ -14,11 +15,11 @@ $(()=>{
 
     $('#submitbutton').on("click", (e) => {
         try{
-            $('#contentvalue').val(secure($('#content').val()));
-            alert("Poster des articles est temporairement désactivé.\r\nVeuillez réésayer plus tard !");
-        }catch(e) {
-            $('#mainform').submit();
-        }
+            window.render();
+            $('#contentvalue').val(secure($('#render').html()));
+        }catch(e) {}
+
+        $('#mainform').submit();
     });
 
     $('#killbutton').on("click", (e) => {

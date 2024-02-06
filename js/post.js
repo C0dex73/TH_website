@@ -6,117 +6,185 @@ $(() => {
         return fStr.split(str).length-1;
     };
 
+    let endsWith = (str, toCheck) => {
+        if(toCheck == "*" && endsWith(str, "**")) { return false;}
+        return str.substring(str.length-toCheck.length, str.length) == toCheck
+    }
+
+    let startsWith = (str, toCheck) => {
+        if(toCheck == "*" && startsWith(str, "**")) { return false;}
+        return str.substring(0, toCheck.length) == toCheck
+    }
+
     let bred = (str) => {
-        if(str.length < 6){
-            return str.replace(/\n/g, "<br/>\n");
-        }else{
-            let i = 6;
-            let l = str.length;
-            while(i <= l-1) {
-                if(str[i] == '\n' && str.substring(i-5, i) != '<br/>'){
-                    str = str.substring(0, i) + '<br/>' + str.substring(i, str.length);
-                    l=str.length;
-                    i += 5;
-                }
-                i++;
+        if(str.length < 6){ return str.replace(/\n/g, "<br/>\n"); }
+
+        let i = 6;
+        let l = str.length;
+        while(i <= l-1) {
+            if(str[i] == '\n' && str.substring(i-5, i) != '<br/>'){
+                str = str.substring(0, i) + '<br/>' + str.substring(i, str.length);
+                l=str.length;
+                i += 5;
             }
+            i++;
         }
         return str;
     };
 
-    let deleteDoubles = (tag, text) => {
-        let Length = tag.length*2+5;
-        if(text.length >= Length){
-            for(let i = 0; i <= text.length-Length;) {
-                if(text.substring(i, i+Length) == '<'+tag+'></'+tag+'>'){
-                    text = text.substring(0, i) + text.substring(i+Length, text.length+1);
-                }else{
-                    i++;
-                }
-            }
-        }
-        return text;
-    };
+    let switchCase = (char) => {
+        try{
+            if (char == char.toUpperCase()) { return char.toLowerCase(); }
+            return char.toUpperCase();
+        }catch(e){ return char; }
+    }
 
-    let reverse = (text, str1, str2) => {
+    let parseToHTML = (str) => {
+
+        let buffer = str;
         let txt = "";
-        let Length = Math.max(str1.length, str2.length)
-        let i = 0;
-        while (i <= text.length-Length){
-            if(text.substring(i, i+str1.length) == str1){
-                txt += str2;
-                i += str1.length;
-            }else if(text.substring(i, i+str2.length) == str2){
-                txt += str1;
-                i += str2.length;
-            }else{
-                txt += text[i];
+        let italic = false;
+        let bold = false;
+        let underline = false;
+
+        for (let i = 0; i < buffer.length; i++) {
+            if (buffer.substring(i, i + 2) == "**"){
+                if(bold){
+                    txt += "</b>";
+                }else{
+                    txt += "<b>";
+                }
+                bold = !bold;
                 i++;
+            }else if (buffer.substring(i, i + 1) == "*"){
+                if(italic){
+                    txt += "</i>";
+                }else{
+                    txt += "<i>";
+                }
+                italic = !italic;
+            }else if (buffer.substring(i, i + 2) == "__"){
+                if(underline){
+                    txt += "</u>";
+                }else{
+                    txt += "<u>";
+                }
+                underline = !underline;
+                i++;
+            }else{
+                txt += buffer[i];
             }
         }
-        txt += text.substring(i, text.length);
-        return txt;
-    };
 
-    let modify = (command, args=null) =>{
-        let text = "";
-        let selected = txtAera.value.substring(txtAera.selectionStart, txtAera.selectionEnd);
-        if(selected != ""){
-            let before = txtAera.value.substring(0, txtAera.selectionStart);
-            let after = txtAera.value.substring(txtAera.selectionEnd);
-            if(command == 'i' || command == 'b' || command == 'u') {
-                selected = reverse(selected, '<' + command + '>', '</' + command + '>');
-                if(count(before, '<'+command+'>') > count(before, '</'+command+'>')){
-                    text = before + '</'+command+'>' + selected + '<'+command+'>' + after;
+        
+        let Llimit = -1;
+        let Middle = -1;
+        let Rlimit = -1;
+
+        do{
+            buffer = txt;
+            Llimit = buffer.indexOf("[");
+            console.log(Llimit);
+            Rlimit = Llimit == -1 ? -1 : buffer.lastIndexOf(")");
+            console.log(Rlimit)
+            Middle = (Rlimit == -1 || Rlimit < Llimit) ? -1 : buffer.lastIndexOf("](", Rlimit);
+            console.log(Middle)
+            if(Middle != -1){
+                let before = buffer.substring(0, Llimit);
+                let param = buffer.substring(Middle+2, Rlimit);
+                let inside = buffer.substring(Llimit+1, Middle);
+                let after = buffer.substring(Rlimit+1);
+
+                if(param.length == 7){
+                    txt = `${before}<span style="color:${param}">${inside}</span>${after}`;
                 }else{
-                    text = before + '<'+command+'>' + selected + '</'+command+'>' + after;
+                    txt = `${before}<a target="_blank" href="${param}">${inside}</a>${after}`;
                 }
-                text = deleteDoubles('i', text);
-            }else if(command == 'm'){
-                text = before;
-                for(let i = 0; i < selected.length ; i++) {
-                    if(selected[i] === selected[i].toLowerCase() && selected[i].toUpperCase() !== selected[i]){
-                        text += selected[i].toUpperCase();
-                    }else if(selected[i] !== selected[i].toLowerCase() && selected[i].toUpperCase() === selected[i]){
-                        text += selected[i].toLowerCase();
-                    }else{
-                        text += selected[i];
+            }
+        }while(Middle != -1);
+        
+
+        /* (let i = 0; i < buffer.length; i++){
+            if(buffer[i] == "["){
+                for(let j = i+1; j < buffer.length-2; j++){
+                    if(buffer[j] == "]" && buffer[j+1] == "("){
+                        for(let k = j+1; k < buffer.length-1; k++){
+
+                        }
                     }
                 }
-                text += after;
-            }else if(command == 'a'){
-                let url = window.prompt("Entrez une url.");
-                text = before + '<a target="_blank" href="' + url + '">' + selected + '</a>' + after;
-            }else if(command == 'c' && args != null){
-                selected = selected.replace(/<span.*class=\"p\">/, '').replace(/<\/span>/, '');
-                text = before + '<span style="color: ' + args + '" class="p">' + selected + '</span>' + after;
+            }else{
+                txt += buffer[i];
             }
-            return text;
-        }else{
-            return txtAera.value;
+        }*/
+
+
+        return bred(txt);
+    }
+
+    let modify = (...args) => {
+        let selected = txtAera.value.substring(txtAera.selectionStart, txtAera.selectionEnd);
+
+        let txt = "";
+
+        let before = txtAera.value.substring(0, txtAera.selectionStart);
+        let after = txtAera.value.substring(txtAera.selectionEnd);
+        let toAdd = "";
+
+        switch (args[0]) {
+            case 'b' : toAdd = "**"; break;
+            case 'i' : toAdd = "*"; break;
+            case 'u' : toAdd = "__"; break;
+            case 'm' :
+                let modifiedSelection = [];
+                [...selected].forEach((char) => modifiedSelection.push(switchCase(char)));
+                txt = before + modifiedSelection.join("") + after;
+                break;
+            case 'link' :
+                let url = window.prompt("Entrez une url.");
+                toAdd = `[texte](${url})`;
+                txt = `${before}[${selected}](${url})${after}`;
+                break;
+            case 'c' :
+                toAdd = `[texte](${args[1]})`;
+                txt = `${before}[${selected}](${args[1]})${after}`;
+                break;
+            default :
+                return txtAerate.value;
         }
-    };
+
+        if (selected == ""){ return txtAera.value + toAdd; }
+
+        if (txt != "") { return txt; }
+
+        if(endsWith(selected, toAdd) && !endsWith(selected, '\\' + toAdd)){
+            selected = selected.substring(0, selected.length-toAdd.length);
+            after = toAdd + after;
+        }
+
+        if(startsWith(selected, toAdd) && !startsWith(selected, '\\' + toAdd)){
+            selected = selected.substring(toAdd.length, selected.length);
+            before += toAdd;
+        }
+
+        txt += (endsWith(before, toAdd) && !endsWith(before, '\\' + toAdd))  ? before.substring(0, before.length-toAdd.length) : (before + toAdd);
+
+        txt += selected + ((startsWith(after, toAdd) && !startsWith(after, '\\' + toAdd)) ? after.substring(toAdd.length, after.length) : (toAdd + after));
+
+        return txt;
+    }
 
     $('#modifiers>button').each((id, trigger) => {
         $(trigger).on('click', (e) => {
             let Trigger = e.target;
-            if(Trigger.localName != "button"){
-                Trigger = Trigger.closest("button");
-            }
-            txtAera.value = bred(modify(Trigger.dataset.tag));
+            if(Trigger.localName != "button"){ Trigger = Trigger.closest("button"); }
+            txtAera.value = modify(Trigger.dataset.tag);
         });
     });
 
     $('input#color').on('change', (e) => {
-        txtAera.value = bred(modify('c', e.target.value));
+        txtAera.value = modify('c', e.target.value);
     });
-
-    function Render() {
-        txtAera.value = bred(txtAera.value);
-        $('#render').html(txtAera.value);
-        $('contentvalue').value = txtAera.value;
-        multiImgPreview($('#file'), '#render');
-    }
 
     $('#renderbutton').on('click', (e) => {
         Render();
@@ -140,8 +208,13 @@ $(() => {
 
     };
 
+    let Render = () => {
+        $('#render').html(parseToHTML(txtAera.value));    
+        multiImgPreview($('#file'), '#render');
+    }
+    window.render = Render;
 
-    $('#file').on('change', function() {
+    $('#file').on('change', () => {
         Render();
     });
 });
