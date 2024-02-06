@@ -41,16 +41,17 @@ $(() => {
 
     let parseToHTML = (str) => {
 
-        //TODO : finish parsing to HTML '()[]' modifiers
+        //TODO : finish parsing to HTML '[]()' modifiers
 
 
+        let buffer = str;
         let txt = "";
         let italic = false;
         let bold = false;
         let underline = false;
 
-        for (let i = 0; i < str.length; i++) {
-            if (str.substring(i, i + 2) == "**"){
+        for (let i = 0; i < buffer.length; i++) {
+            if (buffer.substring(i, i + 2) == "**"){
                 if(bold){
                     txt += "</b>";
                 }else{
@@ -58,14 +59,14 @@ $(() => {
                 }
                 bold = !bold;
                 i++;
-            }else if (str.substring(i, i + 1) == "*"){
+            }else if (buffer.substring(i, i + 1) == "*"){
                 if(italic){
                     txt += "</i>";
                 }else{
                     txt += "<i>";
                 }
                 italic = !italic;
-            }else if (str.substring(i, i + 2) == "__"){
+            }else if (buffer.substring(i, i + 2) == "__"){
                 if(underline){
                     txt += "</u>";
                 }else{
@@ -73,38 +74,52 @@ $(() => {
                 }
                 underline = !underline;
                 i++;
-            }else if(str.substring(i, i + 2) == "](" && i+9 < str.length){
-                if(str[i+9] == ")"){
-                    let Llimit = -1;
-                    let Rlimit = i;
-                    for(let j = i-1; j >= 0; j--){
-                        try{
-                            if (str[j] == "[" && str[j-1] != "\\"){
-                                Llimit = j+1;
-                                break;
-                            }
-                        }catch(e){
-                            if(str[j] == "["){
-                                Llimit = j+1;
-                                break;
-                            }
-                        }
-                    }
-                    if(Llimit == -1) {
-                        txt += str[i];
-                    }else{
-                        let colored = str.substring(Llimit, Rlimit);
-                        let color = str.substring(i+2, i+9);
-                        txt = `${txt.substring(0, Llimit-1)}<span style="color:${color};">${colored}</span>`;
-                        i += 9;
-                    }
-                }else{
-                    txt += str[i];
-                }
             }else{
-                txt += str[i];
+                txt += buffer[i];
             }
         }
+
+        
+        let Llimit = -1;
+        let Middle = -1;
+        let Rlimit = -1;
+
+        do{
+            buffer = txt;
+            Llimit = buffer.indexOf("[");
+            console.log(Llimit);
+            Rlimit = Llimit == -1 ? -1 : buffer.lastIndexOf(")");
+            console.log(Rlimit)
+            Middle = (Rlimit == -1 || Rlimit < Llimit) ? -1 : buffer.lastIndexOf("](", Rlimit);
+            console.log(Middle)
+            if(Middle != -1){
+                let before = buffer.substring(0, Llimit);
+                let param = buffer.substring(Middle+2, Rlimit);
+                let inside = buffer.substring(Llimit+1, Middle);
+                let after = buffer.substring(Rlimit+1);
+
+                if(param.length == 7){
+                    txt = `${before}<span style="color:${param}">${inside}</span>${after}`;
+                }else{
+                    txt = `${before}<a target="_blank" href="${param}">${inside}</a>${after}`;
+                }
+            }
+        }while(Middle != -1);
+        
+
+        /* (let i = 0; i < buffer.length; i++){
+            if(buffer[i] == "["){
+                for(let j = i+1; j < buffer.length-2; j++){
+                    if(buffer[j] == "]" && buffer[j+1] == "("){
+                        for(let k = j+1; k < buffer.length-1; k++){
+
+                        }
+                    }
+                }
+            }else{
+                txt += buffer[i];
+            }
+        }*/
 
 
         return bred(txt);
