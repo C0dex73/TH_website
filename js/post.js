@@ -41,9 +41,6 @@ $(() => {
 
     let parseToHTML = (str) => {
 
-        //TODO : finish parsing to HTML '[]()' modifiers
-
-
         let buffer = str;
         let txt = "";
         let italic = false;
@@ -212,7 +209,7 @@ $(() => {
     };
 
     let Render = () => {
-        $('#render').html(parseToHTML(txtAera.value));
+        $('#render').html(parseToHTML(txtAera.value));    
         multiImgPreview($('#file'), '#render');
     }
     window.render = Render;

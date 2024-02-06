@@ -22,7 +22,7 @@
                 <input type="hidden" name="state" value="-5"/>
                 <input type="hidden" name="token" value="<?php echo $token; ?>"/>
                 <div class="userbox">
-                    <input type="text" name="title"/>
+                    <input id="title" type="text" name="title"/>
                     <label>Titre : </label>
                 </div>
 
@@ -56,7 +56,12 @@
                     <span></span>
                     Prévisualiser
                 </button>
-                <div class="userbox bubble static breakword" id="render"></div>
+                <div class="userbox bubble static breakword" id="renderDiv">
+                    <h1 id ="title"></h1>
+                    <p><i>Publié par Moi le XXXX-XX-XX à XX:XX:XX</i></p>
+                    <h1></h1>
+                    <p id="render"></p>
+                </div>
                 <label id="files">
                     <p>Lier des images</p>
                     <input type="file" id="file" name="upload[]" multiple/>

@@ -74,13 +74,17 @@ button {
     user-select: none;
 }
 
-#render {
+#renderDiv {
     min-height : 10px;
     color : white;
 }
 
-#render>span.p{
+#renderDiv>span.p{
     display:inline;
+}
+
+#renderDiv>p {
+    margin : 0px;
 }
 
 .formdiv {

@@ -5,6 +5,6 @@
         'USERNAME' => "",
         'PASSWORD' => "",
         'DB' => "",
-        'CSSJSVERSION' => "1.2.3"
+        'CSSJSVERSION' => "1.2.4"
     );
 ?>
