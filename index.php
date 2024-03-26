@@ -166,8 +166,7 @@ switch ($state){
             $total = count($_FILES['upload']['name']);
             for( $i=0 ; $i < $total ; $i++ ) {
                 $tmpFilePath = $_FILES['upload']['tmp_name'][$i];
-                $isImage = getimagesize($tmpFilePath) ? true : false;
-                if ($tmpFilePath != "" && $isImage){
+                if ($tmpFilePath != ""){
                     $newFilePath = './medias/uploaded/' . $_FILES['upload']['name'][$i];
                     while(file_exists($newFilePath)){
                         $dotPos = strlen($newFilePath) - strlen(pathinfo($newFilePath, PATHINFO_EXTENSION)) - 1;
