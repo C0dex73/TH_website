@@ -71,7 +71,16 @@ $(() => {
                 }
                 underline = !underline;
                 i++;
-            }else{
+            }else if (buffer[i] === "<") {
+                for(j = i; j < buffer.length; j++){
+                    if(buffer[j] === "?"){
+                        break;
+                    }else if(buffer[j] !== " "){
+                        txt += "<";
+                        break;
+                    }
+                }
+            }else {
                 txt += buffer[i];
             }
         }
