@@ -1,6 +1,7 @@
 $(() => {
 
     const txtAera = $('#content')[0];
+    window.txtAera = txtAera;
 
     let count = (fStr, str) => {
         return fStr.split(str).length-1;
