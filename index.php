@@ -187,7 +187,7 @@ switch ($state){
                         case 'mp4' :
                         case 'avi' :
                             if($ext === 'mov') { $ext = 'mp4'; }
-                            $content = $content . '<video controls><source src="' . $newFilePath . '" type="video/' . $ext . '"/><p>Vidéo nommée '. $_FILES['upload']['name'][$i] . '</p></video>';
+                            $content = $content . '<video controls><source src="' . $newFilePath . '" type="video/' . $ext . '"/>Vidéo nommée '. $_FILES['upload']['name'][$i] . '</video>';
                             break;
                         default :
                             $content = $content . '<a href="'. $newFilePath . '" download="'. $_FILES['upload']['name'][$i] . '"><button type="button" class="download-button"><img class="icon" height="30" width="30" src="./medias/download.png" alt="Icône télécharger"/><p>Télécharger '. $_FILES['upload']['name'][$i] . '</p></button></a>';
