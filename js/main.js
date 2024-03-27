@@ -19,6 +19,8 @@ $(()=>{
             if(confirm("Vote article est prêt à être envoyé, veuillez confirmer l'envoi.\r\nRemarque : cette opération peut prendre jusqu'à une minute et risque de changer l'affichage de la page actuelle durant son éxécution, merci de patienter.")){
                 window.render();
                 $('#contentvalue').val(secure($('#render').html()));
+            }else{
+                return;
             }
         }catch(e) {}
 
