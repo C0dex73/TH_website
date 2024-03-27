@@ -229,6 +229,7 @@ $(() => {
         console.log($('#render').html())
     }
     window.render = Render;
+    window.isPosting = () => { return true; }
 
     $('#file').on('change', () => {
         Render();
