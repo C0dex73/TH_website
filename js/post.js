@@ -18,7 +18,6 @@ $(() => {
 
     let bred = (str) => {
         if(str.length < 6){ return str.replace(/\n/g, "<br/>\n"); }
-
         let i = 6;
         let l = str.length;
         while(i <= l-1) {
@@ -93,11 +92,8 @@ $(() => {
         do{
             buffer = txt;
             Llimit = buffer.indexOf("[");
-            console.log(Llimit);
             Rlimit = Llimit == -1 ? -1 : buffer.lastIndexOf(")");
-            console.log(Rlimit)
             Middle = (Rlimit == -1 || Rlimit < Llimit) ? -1 : buffer.lastIndexOf("](", Rlimit);
-            console.log(Middle)
             if(Middle != -1){
                 let before = buffer.substring(0, Llimit);
                 let param = buffer.substring(Middle+2, Rlimit);
@@ -199,27 +195,38 @@ $(() => {
         Render();
     });
 
-    function multiImgPreview(input, imgPreviewPlaceholder){
-
+    function multiFilePreview(input, FilePreviewPlaceholder){
         if (input[0].files) {
             var filesAmount = input[0].files.length;
 
             for (i = 0; i < filesAmount; i++) {
-                var reader = new FileReader();
-
-                reader.onload = function(event) {
-                    $($.parseHTML('<img style="width:100%;height:auto">')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
+                switch (input[0].files[i].type.split('/')[0]) {
+                    case 'image' :
+                        var reader = new FileReader();
+                        reader.onload = function(ev) {
+                            $($.parseHTML('<img style="width:100%;height:auto"/>')).attr('src', ev.target.result).appendTo(FilePreviewPlaceholder);
+                        }
+                        reader.readAsDataURL(input[0].files[i]);
+                    break;
+                    case 'video' :
+                        ($($.parseHTML('<video id="videoHolder_' + i + '"controls></video>')).append($($.parseHTML('<source/>')).attr('src', URL.createObjectURL(input[0].files[i])).attr('type', input[0].files[i].type))).appendTo(FilePreviewPlaceholder);
+                    break;
+                    default :
+                        $($.parseHTML('<a></a>')).attr('href', URL.createObjectURL(input[0].files[i])).attr('download', input[0].files[i].name).append(
+                            $($.parseHTML('<button type="button" class="download-button"><img class="icon" height="30" width="30" src="./medias/download.png" alt="Icône télécharger"/><p>Télécharger '+ input[0].files[i].name + '</p></button></a>'))
+                        ).appendTo(FilePreviewPlaceholder);
                 }
-
-                reader.readAsDataURL(input[0].files[i]);
             }
         }
 
     };
 
     let Render = () => {
-        $('#render').html(parseToHTML(txtAera.value));    
-        multiImgPreview($('#file'), '#render');
+        console.log($('#render').html())
+        $('#render').html(parseToHTML(txtAera.value));
+        $($.parseHTML('<br/>')).appendTo($('#render'));
+        multiFilePreview($('#file'), '#renderDiv');
+        console.log($('#render').html())
     }
     window.render = Render;
 

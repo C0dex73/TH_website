@@ -160,7 +160,7 @@ switch ($state){
     break;
     case '-5':
         $filesPath = array();
-
+        $content = $content . "<br/>";
         if($_FILES['upload']['name'][0] != ""){
             $files = array_filter($_FILES['upload']['name']);
             $total = count($_FILES['upload']['name']);
@@ -168,18 +168,32 @@ switch ($state){
                 $tmpFilePath = $_FILES['upload']['tmp_name'][$i];
                 if ($tmpFilePath != ""){
                     $newFilePath = './medias/uploaded/' . $_FILES['upload']['name'][$i];
+                    $ext = pathinfo($newFilePath, PATHINFO_EXTENSION);
                     while(file_exists($newFilePath)){
-                        $dotPos = strlen($newFilePath) - strlen(pathinfo($newFilePath, PATHINFO_EXTENSION)) - 1;
-                        $newFilePath = substr($newFilePath,0, $dotPos) . '_duplicate.' . pathinfo($newFilePath, PATHINFO_EXTENSION);
+                        $dotPos = strlen($newFilePath) - strlen($ext) - 1;
+                        $newFilePath = substr($newFilePath,0, $dotPos) . '_duplicate.' . $ext;
                     }
                     array_push($filesPath, $newFilePath);
                     move_uploaded_file($tmpFilePath, $newFilePath);
-                    $content = $content . '<img src="' . $newFilePath . '" style="width:100%;" alt="Fichier nommé '. $_FILES['upload']['name'][$i] . '"/>';
+                    switch(strtolower($ext)){
+                        case 'jpg' :
+                        case 'png' :
+                        case 'jpeg' :
+                        case 'svg' :
+                        case 'gif' :
+                            $content = $content . '<img src="' . $newFilePath . '" style="width:100%;" alt="Image nommée '. $_FILES['upload']['name'][$i] . '"/>';
+                            break;
+                        case 'mov' :
+                        case 'mp4' :
+                        case 'avi' :
+                            $content = $content . '<video controls><source src="' . $newFilePath . '" type="video/' . $ext . '"/><p>Vidéo nommée '. $_FILES['upload']['name'][$i] . '</p></video>';
+                            break;
+                        default :
+                            $content = $content . '<a href="'. $newFilePath . '" download="'. $_FILES['upload']['name'][$i] . '"><button type="button" class="download-button"><img class="icon" height="30" width="30" src="./medias/download.png" alt="Icône télécharger"/><p>Télécharger '. $_FILES['upload']['name'][$i] . '</p></button></a>';
+                    }
                 }
             }
         }
-        
-
         $username = getUsername($token);
         if ($title == ""){ $title = "Sans Titre"; }
         $sql = 'INSERT INTO `blog` (`id`, `author`, `title`, `content`, `files`, `published`) VALUES (NULL, \''. $username . '\', \''. $title . '\', \''. $content . '\', \'['. implode(",", $filesPath) .']\', current_timestamp()) ';
