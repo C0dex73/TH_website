@@ -186,7 +186,7 @@ switch ($state){
                         case 'mov' :
                         case 'mp4' :
                         case 'avi' :
-                            if($ext === 'mov') { $ext = 'mp4'; }
+                            if(strtolower($ext) === 'mov') { $ext = 'mp4'; }
                             $content = $content . '<video controls><source src="' . $newFilePath . '" type="video/' . $ext . '"/>Vidéo nommée '. $_FILES['upload']['name'][$i] . '</video>';
                             break;
                         default :
