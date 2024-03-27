@@ -209,7 +209,7 @@ $(() => {
                         reader.readAsDataURL(input[0].files[i]);
                     break;
                     case 'video' :
-                        ($($.parseHTML('<video id="videoHolder_' + i + '"controls></video>')).append($($.parseHTML('<source/>')).attr('src', URL.createObjectURL(input[0].files[i])).attr('type', input[0].files[i].type))).appendTo(FilePreviewPlaceholder);
+                        ($($.parseHTML('<video id="videoHolder_' + i + '"controls></video>')).append($($.parseHTML('<source/>')).attr('src', URL.createObjectURL(input[0].files[i])).attr('type', input[0].files[i].type === 'video/quicktime' ? 'video/mp4' : input[0].files[i].type))).appendTo(FilePreviewPlaceholder);
                     break;
                     default :
                         $($.parseHTML('<a></a>')).attr('href', URL.createObjectURL(input[0].files[i])).attr('download', input[0].files[i].name).append(
